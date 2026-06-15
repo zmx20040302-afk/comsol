@@ -1,0 +1,24 @@
+{
+  "name": "COMSOL 总知识库",
+  "policy": "不推断无来源依据的 COMSOL 设置；空字段保持未知。",
+  "case_knowledge_base": {
+    "index": "comsol_master_cases_index.json",
+    "summary": "COMSOL_MASTER_KNOWLEDGE_BASE.md",
+    "cases": 79,
+    "source_directories": 77,
+    "search_terms": 58555,
+    "query_command": "python comsol_kb.py query \"用户问题\" --index comsol_master_cases_index.json --top-k 5"
+  },
+  "official_documentation_knowledge_base": {
+    "index": "comsol_64_all_docs_index.json",
+    "documents": 108,
+    "pages": 27290,
+    "query_command": "python comsol_docs_kb.py query \"操作问题\" --index comsol_64_all_docs_index.json --top-k 5"
+  },
+  "recommended_workflow": [
+    "先从案例总库检索最相似模型、已记录参数、风险点和验证步骤。",
+    "再从官方文档库核对 COMSOL 操作、节点功能和 API 用法。",
+    "仅采用带来源证据的设置；对缺失字段保持未知。",
+    "最终执行守恒检查、网格与时间步收敛以及基准或实验验证。"
+  ]
+}
