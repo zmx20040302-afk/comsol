@@ -421,7 +421,7 @@
     speechMode = mode;
     speechPaused = false;
     singleSpeechCard = mode === "single" ? currentCard : null;
-    speechCardIndex = mode === "all" ? 0 : Math.max(0, cards.findIndex((card) => card.id === currentCard.id));
+    speechCardIndex = Math.max(0, cards.findIndex((card) => card.id === currentCard.id));
     elements.speechRate.value = String(state.speechRate || 1);
     updateSpeechControls();
     void holdScreenAwake();
