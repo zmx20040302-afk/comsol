@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <title>正在打开百度兼容版</title>
+</head>
+<body>
+  <p>正在清理旧缓存并打开百度兼容版……</p>
+  <script>
+    (function () {
+      var jobs = [];
+      if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
+        jobs.push(navigator.serviceWorker.getRegistrations().then(function (items) {
+          return Promise.all(items.map(function (item) { return item.unregister(); }));
+        }));
+      }
+      if (window.caches && caches.keys) {
+        jobs.push(caches.keys().then(function (keys) {
+          return Promise.all(keys.map(function (key) { return caches.delete(key); }));
+        }));
+      }
+      Promise.all(jobs).catch(function () {}).then(function () {
+        location.replace("./?baidu=12-20261003");
+      });
+    }());
+  </script>
+</body>
+</html>

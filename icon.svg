@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#12345a"/>
+  <rect x="96" y="76" width="320" height="360" rx="48" fill="#fff"/>
+  <rect x="96" y="76" width="320" height="30" rx="15" fill="#f4b942"/>
+  <path d="M160 170h192M160 226h126M160 342h192" stroke="#bfd0df" stroke-width="22" stroke-linecap="round"/>
+  <text x="256" y="318" text-anchor="middle" font-family="sans-serif" font-size="132" font-weight="800" fill="#12345a">答</text>
+</svg>

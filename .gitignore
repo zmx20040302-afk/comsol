@@ -1,9 +1,0 @@
-__pycache__/
-*.py[cod]
-
-*.log
-build_3d_bulb_log.txt
-*_failed_stage.mph
-
-.DS_Store
-Thumbs.db

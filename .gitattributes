@@ -1,5 +1,0 @@
-comsol_64_all_docs_index.json filter=lfs diff=lfs merge=lfs -text
-comsol_master_cases_index.json filter=lfs diff=lfs merge=lfs -text
-comsol_64_core_docs_index.json filter=lfs diff=lfs merge=lfs -text
-comsol_fourth_batch_cases_index.json filter=lfs diff=lfs merge=lfs -text
-mems_acoustic_chip_3d/mems_acoustic_chip_3d.mph filter=lfs diff=lfs merge=lfs -text

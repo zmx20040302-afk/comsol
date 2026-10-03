@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <meta name="theme-color" content="#12345a">
+  <meta name="application-name" content="洛阳幼师答辩题卡">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="description" content="洛阳幼儿园教师职称答辩离线题卡：64道常见问题、幼教通识、带班真实性核验、回答模板与记忆进度。">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
+  <title>洛阳幼师答辩题卡</title>
+  <link rel="manifest" href="manifest.webmanifest?v=12">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="stylesheet" href="styles.css?v=12">
+  <script>
+    window.addEventListener("load", function () {
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+          return Promise.all(registrations.map(function (registration) { return registration.unregister(); }));
+        }).catch(function () {});
+      }
+      if ("caches" in window) {
+        caches.keys().then(function (keys) {
+          return Promise.all(keys.map(function (key) { return caches.delete(key); }));
+        }).catch(function () {});
+      }
+    }, false);
+  </script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">洛阳 · 幼儿园教师职称</p>
+        <h1>答辩题卡</h1>
+      </div>
+      <div class="top-actions">
+        <button class="icon-button" id="installButton" type="button" hidden aria-label="安装到手机桌面" title="安装到桌面">
+          <span aria-hidden="true">⇩</span>
+        </button>
+        <button class="icon-button" id="openPanelButton" type="button" aria-label="打开练习设置" title="练习设置">
+          <span aria-hidden="true">☰</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="session-strip" aria-label="练习进度">
+      <div class="progress-copy">
+        <span id="modeLabel">全部题目</span>
+        <strong id="progressText">1 / 64</strong>
+      </div>
+      <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
+    </section>
+
+    <main class="study-stage">
+      <article class="study-card" id="studyCard" aria-live="polite">
+        <div class="card-meta">
+          <span class="category-pill" id="categoryLabel">讲课延伸</span>
+          <button class="favorite-button" id="favoriteButton" type="button" aria-label="收藏本题" aria-pressed="false">☆</button>
+        </div>
+
+        <div class="question-block">
+          <p class="question-number" id="questionNumber">问题 1</p>
+          <h2 id="questionText">你为什么这样确定活动目标</h2>
+        </div>
+
+        <div class="keywords" id="keywords" aria-label="关键词"></div>
+
+        <div class="listen-actions" aria-label="循环朗诵">
+          <button id="loopSingleButton" type="button">
+            <span aria-hidden="true">◉</span>
+            <span><strong>单题循环</strong><small>反复听当前题</small></span>
+          </button>
+          <button id="loopAllButton" type="button">
+            <span aria-hidden="true">∞</span>
+            <span><strong>全部循环</strong><small>按顺序听64题</small></span>
+          </button>
+        </div>
+
+        <div class="answer-zone" id="answerZone">
+          <button class="reveal-button" id="revealButton" type="button">
+            <span>点击查看答案</span>
+            <small>也可以按空格键</small>
+          </button>
+          <div class="answer-content" id="answerContent" hidden>
+            <div class="answer-heading">
+              <span>现场回答模板</span>
+              <button class="mini-button" id="startTimerButton" type="button">90秒计时</button>
+            </div>
+            <p id="answerText"></p>
+            <p class="focus-note" id="focusNote" hidden></p>
+          </div>
+        </div>
+
+        <div class="rating-panel" id="ratingPanel" hidden>
+          <p>这道题掌握得怎样？</p>
+          <div class="rating-buttons">
+            <button type="button" data-rating="again"><span>不会</span><small>明天再练</small></button>
+            <button type="button" data-rating="hard"><span>模糊</span><small>3天后复习</small></button>
+            <button type="button" data-rating="good"><span>会了</span><small>7天后复习</small></button>
+          </div>
+        </div>
+      </article>
+
+      <p class="swipe-hint">左右滑动或使用下方按钮换题</p>
+    </main>
+
+    <nav class="bottom-nav" aria-label="题卡翻页">
+      <button id="prevButton" type="button"><span aria-hidden="true">‹</span> 上一题</button>
+      <button class="shuffle-button" id="shuffleButton" type="button" aria-label="随机一题" title="随机一题">随机</button>
+      <button id="nextButton" type="button">下一题 <span aria-hidden="true">›</span></button>
+    </nav>
+  </div>
+
+  <aside class="side-panel" id="sidePanel" aria-hidden="true">
+    <button class="panel-backdrop" id="panelBackdrop" type="button" aria-label="关闭设置"></button>
+    <div class="panel-sheet" role="dialog" aria-modal="true" aria-labelledby="panelTitle">
+      <div class="panel-header">
+        <div>
+          <p class="eyebrow">练习中心</p>
+          <h2 id="panelTitle">选择今天怎么练</h2>
+        </div>
+        <button class="icon-button" id="closePanelButton" type="button" aria-label="关闭设置">×</button>
+      </div>
+
+      <div class="stats-grid">
+        <div><strong id="masteredCount">0</strong><span>已掌握</span></div>
+        <div><strong id="dueCount">64</strong><span>待复习</span></div>
+        <div><strong id="favoriteCount">0</strong><span>已收藏</span></div>
+      </div>
+
+      <section class="panel-section">
+        <h3>练习模式</h3>
+        <div class="mode-grid" id="modeGrid">
+          <button type="button" data-mode="all" class="selected">全部题目</button>
+          <button type="button" data-mode="due">今日复习</button>
+          <button type="button" data-mode="weak">不会与模糊</button>
+          <button type="button" data-mode="favorites">我的收藏</button>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <label for="categorySelect">题目分类</label>
+        <select id="categorySelect">
+          <option value="all">全部分类</option>
+        </select>
+      </section>
+
+      <section class="panel-section">
+        <label for="searchInput">查找题目</label>
+        <div class="search-row">
+          <input id="searchInput" type="search" placeholder="输入问题或关键词" autocomplete="off">
+          <button id="searchButton" type="button">查找</button>
+        </div>
+        <div class="search-results" id="searchResults"></div>
+      </section>
+
+      <section class="panel-section compact-actions">
+        <button id="exportButton" type="button">导出学习记录</button>
+        <label class="import-label" for="importInput">导入学习记录</label>
+        <input id="importInput" type="file" accept="application/json" hidden>
+      </section>
+
+      <p class="panel-note compatibility-note" id="browserCompatibilityNote" hidden></p>
+
+      <p class="panel-note listen-note">朗诵顺序：题号、问题、关键词、参考答案。当前使用预生成普通音频播放，不依赖手机的网页朗读接口；锁屏后可使用系统播放控件继续、暂停或切换题目。</p>
+
+      <p class="panel-note">学习记录只保存在当前设备。题库依据2025年河南及洛阳公开安排整理，报到与考试事项以本人当年通知为准。</p>
+    </div>
+  </aside>
+
+  <div class="timer-toast" id="timerToast" role="status" aria-live="polite" hidden>
+    <span>口述计时</span>
+    <strong id="timerText">01:30</strong>
+    <button id="stopTimerButton" type="button">停止</button>
+  </div>
+
+  <audio id="narrationAudio" class="narration-audio" preload="auto" playsinline webkit-playsinline="true" x5-playsinline="true" x-webkit-airplay="allow" aria-hidden="true"></audio>
+
+  <section class="speech-dock" id="speechDock" aria-label="朗诵控制" aria-live="polite" hidden>
+    <div class="speech-status">
+      <span class="speech-pulse" aria-hidden="true"></span>
+      <div>
+        <strong id="speechModeText">单题循环</strong>
+        <small id="speechStatusText">正在准备朗诵…</small>
+      </div>
+    </div>
+    <div class="speech-controls">
+      <label for="speechRateSelect">语速</label>
+      <select id="speechRateSelect" aria-label="朗诵语速">
+        <option value="0.8">慢速</option>
+        <option value="1" selected>正常</option>
+        <option value="1.2">稍快</option>
+      </select>
+      <button id="pauseSpeechButton" type="button">暂停</button>
+      <button id="stopSpeechButton" type="button">停止</button>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="cards-data.js?v=12"></script>
+  <script src="app.js?v=12"></script>
+</body>
+</html>
