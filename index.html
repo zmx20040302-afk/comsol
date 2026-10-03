@@ -9,15 +9,15 @@
   <meta name="theme-color" content="#12345a">
   <meta name="application-name" content="洛阳幼师答辩题卡">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="description" content="洛阳幼儿园教师职称答辩离线题卡：64道常见问题、幼教通识、带班真实性核验、回答模板与记忆进度。">
+  <meta name="description" content="洛阳幼儿园教师职称答辩离线题卡：86道常见问题、2026学前教育通识、《指南》专题、农村园完整案例与记忆进度。">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="format-detection" content="telephone=no">
   <title>洛阳幼师答辩题卡</title>
-  <link rel="manifest" href="manifest.webmanifest?v=13">
+  <link rel="manifest" href="manifest.webmanifest?v=14">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
-  <link rel="stylesheet" href="styles.css?v=13">
+  <link rel="stylesheet" href="styles.css?v=14">
   <script>
     window.addEventListener("load", function () {
       if ("serviceWorker" in navigator) {
@@ -53,7 +53,7 @@
     <section class="session-strip" aria-label="练习进度">
       <div class="progress-copy">
         <span id="modeLabel">全部题目</span>
-        <strong id="progressText">1 / 64</strong>
+        <strong id="progressText">1 / 86</strong>
       </div>
       <div class="progress-track" aria-hidden="true"><span id="progressBar"></span></div>
     </section>
@@ -79,7 +79,7 @@
           </button>
           <button id="loopAllButton" type="button">
             <span aria-hidden="true">∞</span>
-            <span><strong>全部循环</strong><small>按顺序听64题</small></span>
+            <span><strong>全部循环</strong><small id="loopAllHint">按顺序听86题</small></span>
           </button>
         </div>
 
@@ -94,6 +94,12 @@
               <button class="mini-button" id="startTimerButton" type="button">90秒计时</button>
             </div>
             <p id="answerText"></p>
+            <section class="rural-example" aria-labelledby="ruralExampleHeading">
+              <h3 id="ruralExampleHeading">农村幼儿园完整示例</h3>
+              <p class="example-warning">用于练习回答结构，现场请替换为本人真实经历和数据。</p>
+              <p id="exampleText"></p>
+            </section>
+            <p class="source-note" id="sourceNote" hidden></p>
             <p class="focus-note" id="focusNote" hidden></p>
           </div>
         </div>
@@ -131,7 +137,7 @@
 
       <div class="stats-grid">
         <div><strong id="masteredCount">0</strong><span>已掌握</span></div>
-        <div><strong id="dueCount">64</strong><span>待复习</span></div>
+        <div><strong id="dueCount">86</strong><span>待复习</span></div>
         <div><strong id="favoriteCount">0</strong><span>已收藏</span></div>
       </div>
 
@@ -169,7 +175,7 @@
 
       <p class="panel-note compatibility-note" id="browserCompatibilityNote" hidden></p>
 
-      <p class="panel-note listen-note">朗诵顺序：题号、问题、关键词、参考答案。当前使用预生成普通音频播放，不依赖手机的网页朗读接口；锁屏后可使用系统播放控件继续、暂停或切换题目。</p>
+      <p class="panel-note listen-note">朗诵顺序：题号、问题、关键词、参考答案、农村幼儿园完整示例。当前使用预生成音频播放，不依赖手机的网页朗读接口；锁屏后可使用系统播放控件继续、暂停或切换题目。</p>
 
       <p class="panel-note">学习记录只保存在当前设备。题库依据2025年河南及洛阳公开安排整理，报到与考试事项以本人当年通知为准。</p>
     </div>
@@ -205,7 +211,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
-  <script src="cards-data.js?v=13"></script>
-  <script src="app.js?v=13"></script>
+  <script src="cards-data.js?v=14"></script>
+  <script src="app.js?v=14"></script>
 </body>
 </html>

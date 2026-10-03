@@ -168,6 +168,18 @@ h1, h2, h3, p { margin-top: 0; }
 .answer-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .85rem; color: var(--navy); font-size: .9rem; font-weight: 850; }
 .mini-button { padding: .55rem .75rem; border: 1px solid #b7c5d2; border-radius: .7rem; color: var(--navy); background: #fff; font-size: .82rem; font-weight: 750; cursor: pointer; }
 .answer-content > p { margin-bottom: .8rem; font-size: 1.08rem; line-height: 1.9; text-align: justify; }
+.rural-example {
+  margin: 1.15rem 0 .9rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid #c9dedb;
+  border-left: .32rem solid var(--teal);
+  border-radius: .9rem;
+  background: #f2fbfa;
+}
+.rural-example h3 { margin: 0 0 .35rem; color: var(--navy); font-size: 1rem; }
+.rural-example .example-warning { margin: 0 0 .7rem; color: #78622d; font-size: .82rem; line-height: 1.55; }
+.rural-example #exampleText { margin: 0; color: #243746; font-size: 1rem; line-height: 1.85; text-align: justify; }
+.source-note { margin: .8rem 0; color: #53677a; font-size: .82rem !important; line-height: 1.65 !important; }
 .focus-note { padding: .75rem .85rem; border-left: .25rem solid var(--amber); border-radius: 0 .65rem .65rem 0; color: #5c4a23; background: var(--amber-soft); font-size: .92rem !important; line-height: 1.65 !important; }
 
 .rating-panel { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }

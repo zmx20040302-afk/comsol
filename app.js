@@ -9,12 +9,12 @@
     card: $("#studyCard"), modeLabel: $("#modeLabel"), progressText: $("#progressText"), progressBar: $("#progressBar"),
     category: $("#categoryLabel"), number: $("#questionNumber"), question: $("#questionText"), keywords: $("#keywords"),
     favorite: $("#favoriteButton"), reveal: $("#revealButton"), answer: $("#answerContent"), answerText: $("#answerText"),
-    focus: $("#focusNote"), rating: $("#ratingPanel"), prev: $("#prevButton"), next: $("#nextButton"), shuffle: $("#shuffleButton"),
+    example: $("#exampleText"), source: $("#sourceNote"), focus: $("#focusNote"), rating: $("#ratingPanel"), prev: $("#prevButton"), next: $("#nextButton"), shuffle: $("#shuffleButton"),
     panel: $("#sidePanel"), openPanel: $("#openPanelButton"), closePanel: $("#closePanelButton"), backdrop: $("#panelBackdrop"),
     categorySelect: $("#categorySelect"), modeGrid: $("#modeGrid"), mastered: $("#masteredCount"), due: $("#dueCount"), favorites: $("#favoriteCount"),
     searchInput: $("#searchInput"), searchButton: $("#searchButton"), searchResults: $("#searchResults"),
     timer: $("#timerToast"), timerText: $("#timerText"), startTimer: $("#startTimerButton"), stopTimer: $("#stopTimerButton"),
-    loopSingle: $("#loopSingleButton"), loopAll: $("#loopAllButton"), speechDock: $("#speechDock"),
+    loopSingle: $("#loopSingleButton"), loopAll: $("#loopAllButton"), loopAllHint: $("#loopAllHint"), speechDock: $("#speechDock"),
     speechModeText: $("#speechModeText"), speechStatusText: $("#speechStatusText"), speechRate: $("#speechRateSelect"),
     pauseSpeech: $("#pauseSpeechButton"), stopSpeech: $("#stopSpeechButton"), narrationAudio: $("#narrationAudio"),
     toast: $("#toast"), install: $("#installButton"), compatibilityNote: $("#browserCompatibilityNote"),
@@ -89,6 +89,9 @@
     elements.question.textContent = card.question;
     elements.keywords.innerHTML = card.keywords.map((word) => `<span class="keyword">${escapeHtml(word)}</span>`).join("");
     elements.answerText.textContent = card.answer;
+    elements.example.textContent = card.example;
+    elements.source.hidden = !card.source;
+    elements.source.textContent = card.source ? `依据：${card.source}` : "";
     elements.focus.hidden = !card.focus;
     elements.focus.textContent = card.focus ? `考察点：${card.focus}` : "";
     const favorite = state.favorites.includes(card.id);
@@ -250,6 +253,7 @@
       { label: "正在朗诵题目", text: `第${card.id}题。${card.question}` },
       { label: "正在朗诵关键词", text: `关键词。${card.keywords.join("，")}` },
       ...splitForSpeech(`参考答案。${card.answer}`).map((text) => ({ label: "正在朗诵答案", text })),
+      ...splitForSpeech(`农村幼儿园完整示例。${card.example}`).map((text) => ({ label: "正在朗诵完整示例", text })),
       ...(card.focus ? splitForSpeech(`考察点。${card.focus}`).map((text) => ({ label: "正在朗诵考察点", text })) : [])
     ];
   }
@@ -349,7 +353,7 @@
   }
 
   function recordedAudioPath(card) {
-    const filename = `audio/card-${String(card.id).padStart(2, "0")}.mp3?v=13`;
+    const filename = `audio/card-${String(card.id).padStart(2, "0")}.mp3?v=14`;
     const bundledHost = /(^localhost$|^127\.0\.0\.1$|\.chatgpt\.site$|\.github\.io$)/i.test(location.hostname);
     return bundledHost ? filename : `https://luoyang-youshi-dabian-cards.benfeili64.chatgpt.site/${filename}`;
   }
@@ -691,6 +695,7 @@
     elements.reveal.hidden = true;
     return;
   }
+  elements.loopAllHint.textContent = `按顺序听${cards.length}题`;
   initializeCategories();
   initializeAndroidCompatibility();
   if ("mediaSession" in navigator) {
