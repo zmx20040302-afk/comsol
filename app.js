@@ -349,8 +349,8 @@
   }
 
   function recordedAudioPath(card) {
-    const filename = `audio/card-${String(card.id).padStart(2, "0")}.mp3?v=12`;
-    const bundledHost = /(^localhost$|^127\.0\.0\.1$|\.chatgpt\.site$)/i.test(location.hostname);
+    const filename = `audio/card-${String(card.id).padStart(2, "0")}.mp3?v=13`;
+    const bundledHost = /(^localhost$|^127\.0\.0\.1$|\.chatgpt\.site$|\.github\.io$)/i.test(location.hostname);
     return bundledHost ? filename : `https://luoyang-youshi-dabian-cards.benfeili64.chatgpt.site/${filename}`;
   }
 
