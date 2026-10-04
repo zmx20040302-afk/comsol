@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#17365d">
-  <meta name="description" content="七篇小班无幼儿微型课完整展示脚本与完整反思，支持手机文字阅读和温和女声朗读。">
+  <meta name="description" content="七类小班无幼儿微型课模板与53篇对应教案，支持手机文字阅读和温和女声朗读。">
   <meta name="format-detection" content="telephone=no">
   <title>小班微型课展示练习</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317365d'/%3E%3Cpath d='M18 16h24a6 6 0 0 1 6 6v24a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V18a2 2 0 0 1 2-2Z' fill='%23fff'/%3E%3Cpath d='M24 27h16M24 34h16M24 41h10' stroke='%231fa7a2' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=1">
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
   <div class="page-shell">
@@ -16,23 +16,28 @@
       <div>
         <p class="eyebrow">小班 · 无幼儿微型课</p>
         <h1>展示脚本与反思</h1>
-        <p class="header-note">7篇可选，文字与温和女声同步练习</p>
+        <p class="header-note">7类模板 + 53篇教案，文字与温和女声同步练习</p>
       </div>
       <button id="openPickerButton" class="picker-button" type="button" aria-controls="lessonPicker">选择篇目</button>
     </header>
 
     <section id="lessonPicker" class="lesson-picker" aria-label="选择练习篇目">
       <div class="picker-heading">
-        <strong>选择想听的篇目</strong>
+        <strong>选择模板或教案</strong>
         <span id="lessonCount">1 / 7</span>
       </div>
+      <label class="category-control" for="categorySelect">
+        <span>先选择分类</span>
+        <select id="categorySelect" aria-label="选择模板分类"></select>
+      </label>
       <div id="lessonCards" class="lesson-cards"></div>
     </section>
 
     <main class="reading-surface">
       <div class="article-heading">
         <div>
-          <span id="fieldBadge" class="field-badge">语言</span>
+          <span id="fieldBadge" class="field-badge">小班语言</span>
+          <span id="kindBadge" class="kind-badge template">模板</span>
           <h2 id="lessonTitle">故事理解与表达</h2>
         </div>
         <div class="lesson-nav" aria-label="切换篇目">
@@ -42,13 +47,13 @@
       </div>
 
       <div class="content-tabs" role="tablist" aria-label="选择内容">
-        <button id="scriptTab" type="button" role="tab" aria-selected="true">完整展示脚本</button>
-        <button id="reflectionTab" type="button" role="tab" aria-selected="false">完整反思成稿</button>
+        <button id="scriptTab" type="button" role="tab" aria-selected="true">逐环节完整微型课展示脚本</button>
+        <button id="reflectionTab" type="button" role="tab" aria-selected="false">完整反思成稿模板</button>
       </div>
 
       <div class="listening-row">
         <button id="playSectionButton" class="primary-play" type="button">播放当前内容</button>
-        <button id="continuousButton" type="button" aria-pressed="true">整篇连续播放：开</button>
+        <button id="continuousButton" type="button" aria-pressed="true">过程后接反思：开</button>
       </div>
 
       <article id="articleContent" class="article-content" aria-live="polite"></article>
@@ -88,7 +93,8 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
-  <script src="content.js?v=1"></script>
-  <script src="app.js?v=1"></script>
+  <script src="content.js?v=4"></script>
+  <script src="pack-index.js?v=4"></script>
+  <script src="app-v2.js?v=4"></script>
 </body>
 </html>

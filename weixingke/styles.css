@@ -32,16 +32,22 @@ h1 { margin: 0; color: var(--navy); font-size: clamp(1.75rem, 7vw, 2.6rem); line
 .lesson-picker { padding: 1rem; border: 1px solid rgba(23,54,93,.1); border-radius: 1.25rem; background: rgba(255,255,255,.9); box-shadow: 0 12px 32px rgba(24,50,78,.08); }
 .picker-heading { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: .8rem; color: var(--navy); }
 .picker-heading span { color: var(--muted); }
+.category-control { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: .65rem; margin-bottom: .85rem; color: var(--muted); font-size: .86rem; font-weight: 700; }
+.category-control select { width: 100%; min-height: 2.75rem; padding: 0 2.4rem 0 .8rem; border: 1px solid var(--line); border-radius: .75rem; color: var(--navy); background: #fff; font-weight: 700; }
 .lesson-cards { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(12rem, 72%); gap: .7rem; overflow-x: auto; padding: .15rem .05rem .5rem; scroll-snap-type: x mandatory; scrollbar-width: thin; }
 .lesson-card { min-height: 5.6rem; padding: .85rem; border: 1px solid var(--line); border-radius: 1rem; text-align: left; color: var(--ink); background: #fff; scroll-snap-align: start; }
 .lesson-card span { display: block; margin-bottom: .35rem; color: var(--teal); font-size: .8rem; font-weight: 800; }
 .lesson-card strong { display: block; font-size: 1rem; line-height: 1.45; }
 .lesson-card.selected { border-color: var(--navy); color: #fff; background: var(--navy); box-shadow: 0 8px 20px rgba(23,54,93,.18); }
 .lesson-card.selected span { color: #9ce0db; }
+.lesson-card.template:not(.selected) { border-color: #92cfc9; background: #f1fbfa; }
 
 .reading-surface { margin-top: 1rem; overflow: hidden; border: 1px solid rgba(23,54,93,.1); border-radius: 1.35rem; background: var(--paper); box-shadow: 0 18px 44px rgba(24,50,78,.1); }
 .article-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: .8rem; padding: 1.2rem 1.15rem 1rem; border-top: .36rem solid var(--gold); }
 .field-badge { display: inline-block; margin-bottom: .5rem; padding: .28rem .65rem; border-radius: 999px; color: #075e5a; background: var(--teal-soft); font-size: .82rem; font-weight: 800; }
+.kind-badge { display: inline-block; margin: 0 0 .5rem .35rem; padding: .28rem .65rem; border-radius: 999px; font-size: .82rem; font-weight: 800; }
+.kind-badge.template { color: #704900; background: #fff0c8; }
+.kind-badge.lesson { color: #17365d; background: #e7edf5; }
 h2 { margin: 0; color: var(--navy); font-size: clamp(1.35rem, 5vw, 1.9rem); line-height: 1.3; }
 .lesson-nav { display: flex; flex-direction: column; gap: .45rem; flex: 0 0 auto; }
 .lesson-nav button { min-height: 2.2rem; padding: 0 .72rem; border: 1px solid var(--line); border-radius: .7rem; color: var(--navy); background: #fff; }
@@ -85,7 +91,7 @@ h2 { margin: 0; color: var(--navy); font-size: clamp(1.35rem, 5vw, 1.9rem); line
 
 @media (min-width: 700px) {
   .page-shell { padding-top: 1.6rem; }
-  .lesson-cards { grid-auto-flow: row; grid-template-columns: repeat(4, 1fr); overflow: visible; }
+  .lesson-cards { grid-auto-flow: row; grid-template-columns: repeat(3, 1fr); overflow: visible; }
   .article-heading { padding: 1.45rem 1.6rem 1.15rem; }
   .content-tabs, .listening-row { padding-right: 1.6rem; padding-left: 1.6rem; }
   .article-content { padding: .35rem 1.6rem 1.8rem; }
@@ -97,6 +103,7 @@ h2 { margin: 0; color: var(--navy); font-size: clamp(1.35rem, 5vw, 1.9rem); line
   .site-header { align-items: center; }
   .header-note { max-width: 13rem; }
   .picker-button { padding: 0 .75rem; }
+  .category-control { grid-template-columns: 1fr; gap: .35rem; }
   .article-heading { flex-direction: column; }
   .lesson-nav { width: 100%; flex-direction: row; }
   .lesson-nav button { flex: 1; }
