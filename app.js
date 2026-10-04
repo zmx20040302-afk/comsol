@@ -3,6 +3,7 @@
   const storageKey = "luoyang-defense-cards-v1";
   const modeNames = { all: "全部题目", due: "今日复习", weak: "不会与模糊", favorites: "我的收藏" };
   const intervals = { again: 1, hard: 3, good: 7 };
+  const backgroundAudioIndex = Array.isArray(window.ALL_CARDS_AUDIO_INDEX) ? window.ALL_CARDS_AUDIO_INDEX : [];
 
   const $ = (selector) => document.querySelector(selector);
   const elements = {
@@ -37,6 +38,7 @@
   let singleSpeechCard = null;
   let wakeLock = null;
   let usingRecordedAudio = false;
+  let usingBackgroundPlaylist = false;
 
   function loadState() {
     try { return { ...defaultState, ...JSON.parse(localStorage.getItem(storageKey) || "{}") }; }
@@ -353,9 +355,38 @@
   }
 
   function recordedAudioPath(card) {
-    const filename = `audio/card-${String(card.id).padStart(2, "0")}.mp3?v=14`;
+    const filename = `audio/card-${String(card.id).padStart(2, "0")}.mp3?v=16`;
     const bundledHost = /(^localhost$|^127\.0\.0\.1$|\.chatgpt\.site$|\.github\.io$)/i.test(location.hostname);
     return bundledHost ? filename : `https://luoyang-youshi-dabian-cards.benfeili64.chatgpt.site/${filename}`;
+  }
+
+  function backgroundAudioPath() {
+    const filename = "audio/all-cards-background.mp3?v=16";
+    const bundledHost = /(^localhost$|^127\.0\.0\.1$|\.chatgpt\.site$|\.github\.io$)/i.test(location.hostname);
+    return bundledHost ? filename : `https://luoyang-youshi-dabian-cards.benfeili64.chatgpt.site/${filename}`;
+  }
+
+  function updateBackgroundPlaylistCard(force = false) {
+    if (!usingBackgroundPlaylist || speechMode !== "all") return;
+    const time = elements.narrationAudio.currentTime || 0;
+    let nextIndex = backgroundAudioIndex.findIndex((entry) => time >= entry.start && time < entry.end);
+    if (nextIndex < 0) nextIndex = 0;
+    if (!force && nextIndex === speechCardIndex) return;
+    speechCardIndex = nextIndex;
+    const card = cards[speechCardIndex];
+    if (!card) return;
+    showNarratedCard(card);
+    elements.speechModeText.textContent = `全部循环 · ${speechCardIndex + 1}/${cards.length}`;
+    elements.speechStatusText.textContent = `息屏连续播放 · 第${card.id}题`;
+    updateMediaSession(card);
+  }
+
+  function seekBackgroundCard(nextIndex) {
+    if (!backgroundAudioIndex.length) return;
+    speechCardIndex = (nextIndex + backgroundAudioIndex.length) % backgroundAudioIndex.length;
+    const entry = backgroundAudioIndex[speechCardIndex];
+    elements.narrationAudio.currentTime = Math.min(entry.end - 0.02, entry.start + 0.02);
+    updateBackgroundPlaylistCard(true);
   }
 
   function updateMediaSession(card) {
@@ -373,7 +404,9 @@
 
   function playRecordedCard(card, runId) {
     const audio = elements.narrationAudio;
+    usingBackgroundPlaylist = false;
     audio.pause();
+    audio.ontimeupdate = null;
     audio.onended = () => {
       if (!speechMode || runId !== speechRunId) return;
       if (speechMode === "all") speechCardIndex = (speechCardIndex + 1) % cards.length;
@@ -408,6 +441,48 @@
     }
   }
 
+  function playBackgroundPlaylist(runId) {
+    const audio = elements.narrationAudio;
+    usingBackgroundPlaylist = true;
+    audio.pause();
+    audio.onended = null;
+    audio.ontimeupdate = () => {
+      if (!speechMode || runId !== speechRunId || !usingBackgroundPlaylist) return;
+      updateBackgroundPlaylistCard(false);
+    };
+    audio.onerror = () => {
+      if (!speechMode || runId !== speechRunId) return;
+      stopNarration(false);
+      showToast("后台音频加载失败，请刷新页面后重试", 5200);
+    };
+    audio.loop = true;
+    audio.src = backgroundAudioPath();
+    audio.playbackRate = Number(state.speechRate) || 1;
+    audio.setAttribute("playsinline", "true");
+    audio.setAttribute("webkit-playsinline", "true");
+    audio.setAttribute("x5-playsinline", "true");
+    audio.load();
+    elements.speechStatusText.textContent = "正在准备息屏连续播放……";
+
+    const begin = () => {
+      if (!speechMode || runId !== speechRunId || !usingBackgroundPlaylist) return;
+      seekBackgroundCard(speechCardIndex);
+      const playback = audio.play();
+      if (playback && typeof playback.then === "function") {
+        playback.then(() => {
+          if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "playing";
+        }).catch(() => {
+          speechPaused = true;
+          updateSpeechControls();
+          elements.speechStatusText.textContent = "浏览器等待手动授权，请点“继续”";
+          showToast("请点下方“继续”按钮开启声音", 4200);
+        });
+      }
+    };
+    if (audio.readyState >= 1) begin();
+    else audio.addEventListener("loadedmetadata", begin, { once: true });
+  }
+
   function startNarration(mode) {
     // Some Xiaomi/vivo browsers incorrectly reject an MP3 capability hint even
     // though their native media engine plays the file normally. Attempt the actual
@@ -424,8 +499,8 @@
     speechCardIndex = Math.max(0, cards.findIndex((card) => card.id === currentCard.id));
     elements.speechRate.value = String(state.speechRate || 1);
     updateSpeechControls();
-    void holdScreenAwake();
-    speakCurrentNarrationCard(speechRunId);
+    if (mode === "all" && backgroundAudioIndex.length === cards.length) playBackgroundPlaylist(speechRunId);
+    else speakCurrentNarrationCard(speechRunId);
   }
 
   function toggleSpeechPause() {
@@ -433,7 +508,6 @@
     if (speechPaused) {
       if (usingRecordedAudio) void elements.narrationAudio.play(); else window.speechSynthesis.resume();
       speechPaused = false;
-      void holdScreenAwake();
       if (usingRecordedAudio && "mediaSession" in navigator) navigator.mediaSession.playbackState = "playing";
     } else {
       if (usingRecordedAudio) elements.narrationAudio.pause(); else window.speechSynthesis.pause();
@@ -465,12 +539,15 @@
     speechRunId += 1;
     window.speechSynthesis?.cancel();
     elements.narrationAudio.pause();
+    elements.narrationAudio.ontimeupdate = null;
+    elements.narrationAudio.onended = null;
     elements.narrationAudio.removeAttribute("src");
     elements.narrationAudio.load();
     speechMode = null;
     speechPaused = false;
     singleSpeechCard = null;
     usingRecordedAudio = false;
+    usingBackgroundPlaylist = false;
     updateSpeechControls();
     void releaseWakeLock();
     if (showMessage) showToast("已停止循环朗诵");
@@ -687,7 +764,6 @@
     elements.install.hidden = true;
   });
   window.addEventListener("appinstalled", () => showToast("已安装到手机桌面"));
-  document.addEventListener("visibilitychange", () => { if (speechMode && document.visibilityState === "visible") void holdScreenAwake(); });
   window.addEventListener("beforeunload", () => { window.speechSynthesis?.cancel(); elements.narrationAudio.pause(); void releaseWakeLock(); });
 
   if (!cards.length) {
@@ -704,12 +780,14 @@
       navigator.mediaSession.setActionHandler("pause", () => { if (speechMode && !speechPaused) toggleSpeechPause(); });
       navigator.mediaSession.setActionHandler("nexttrack", () => {
         if (speechMode !== "all") return;
+        if (usingBackgroundPlaylist) { seekBackgroundCard(speechCardIndex + 1); return; }
         speechCardIndex = (speechCardIndex + 1) % cards.length;
         elements.narrationAudio.pause();
         speakCurrentNarrationCard(speechRunId);
       });
       navigator.mediaSession.setActionHandler("previoustrack", () => {
         if (speechMode !== "all") return;
+        if (usingBackgroundPlaylist) { seekBackgroundCard(speechCardIndex - 1); return; }
         speechCardIndex = (speechCardIndex - 1 + cards.length) % cards.length;
         elements.narrationAudio.pause();
         speakCurrentNarrationCard(speechRunId);

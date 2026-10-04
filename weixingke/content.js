@@ -237,15 +237,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-01-step-1.mp3",
-        "audio/lesson-01-step-2.mp3",
-        "audio/lesson-01-step-3.mp3",
-        "audio/lesson-01-step-4.mp3",
-        "audio/lesson-01-step-5.mp3",
-        "audio/lesson-01-step-6.mp3"
+        "audio/background-template-01-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-01-reflection.mp3"
+        "audio/background-template-01-reflection.mp3"
       ]
     }
   },
@@ -410,15 +405,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-02-step-1.mp3",
-        "audio/lesson-02-step-2.mp3",
-        "audio/lesson-02-step-3.mp3",
-        "audio/lesson-02-step-4.mp3",
-        "audio/lesson-02-step-5.mp3",
-        "audio/lesson-02-step-6.mp3"
+        "audio/background-template-02-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-02-reflection.mp3"
+        "audio/background-template-02-reflection.mp3"
       ]
     }
   },
@@ -583,15 +573,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-03-step-1.mp3",
-        "audio/lesson-03-step-2.mp3",
-        "audio/lesson-03-step-3.mp3",
-        "audio/lesson-03-step-4.mp3",
-        "audio/lesson-03-step-5.mp3",
-        "audio/lesson-03-step-6.mp3"
+        "audio/background-template-03-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-03-reflection.mp3"
+        "audio/background-template-03-reflection.mp3"
       ]
     }
   },
@@ -756,15 +741,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-04-step-1.mp3",
-        "audio/lesson-04-step-2.mp3",
-        "audio/lesson-04-step-3.mp3",
-        "audio/lesson-04-step-4.mp3",
-        "audio/lesson-04-step-5.mp3",
-        "audio/lesson-04-step-6.mp3"
+        "audio/background-template-04-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-04-reflection.mp3"
+        "audio/background-template-04-reflection.mp3"
       ]
     }
   },
@@ -929,15 +909,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-05-step-1.mp3",
-        "audio/lesson-05-step-2.mp3",
-        "audio/lesson-05-step-3.mp3",
-        "audio/lesson-05-step-4.mp3",
-        "audio/lesson-05-step-5.mp3",
-        "audio/lesson-05-step-6.mp3"
+        "audio/background-template-05-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-05-reflection.mp3"
+        "audio/background-template-05-reflection.mp3"
       ]
     }
   },
@@ -1102,15 +1077,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-06-step-1.mp3",
-        "audio/lesson-06-step-2.mp3",
-        "audio/lesson-06-step-3.mp3",
-        "audio/lesson-06-step-4.mp3",
-        "audio/lesson-06-step-5.mp3",
-        "audio/lesson-06-step-6.mp3"
+        "audio/background-template-06-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-06-reflection.mp3"
+        "audio/background-template-06-reflection.mp3"
       ]
     }
   },
@@ -1275,15 +1245,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-07-step-1.mp3",
-        "audio/lesson-07-step-2.mp3",
-        "audio/lesson-07-step-3.mp3",
-        "audio/lesson-07-step-4.mp3",
-        "audio/lesson-07-step-5.mp3",
-        "audio/lesson-07-step-6.mp3"
+        "audio/background-template-07-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-07-reflection.mp3"
+        "audio/background-template-07-reflection.mp3"
       ]
     }
   },
@@ -1358,13 +1323,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-01-01-process-1.mp3",
-        "audio/lesson-01-01-process-2.mp3",
-        "audio/lesson-01-01-process-3.mp3",
-        "audio/lesson-01-01-process-4.mp3"
+        "audio/background-01-01-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-01-01-reflection.mp3"
+        "audio/background-01-01-reflection.mp3"
       ]
     }
   },
@@ -1461,14 +1423,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-05-01-process-1.mp3",
-        "audio/lesson-05-01-process-2.mp3",
-        "audio/lesson-05-01-process-3.mp3",
-        "audio/lesson-05-01-process-4.mp3",
-        "audio/lesson-05-01-process-5.mp3"
+        "audio/background-05-01-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-05-01-reflection.mp3"
+        "audio/background-05-01-reflection.mp3"
       ]
     }
   },
@@ -1545,14 +1503,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-01-02-process-1.mp3",
-        "audio/lesson-01-02-process-2.mp3",
-        "audio/lesson-01-02-process-3.mp3",
-        "audio/lesson-01-02-process-4.mp3",
-        "audio/lesson-01-02-process-5.mp3"
+        "audio/background-01-02-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-01-02-reflection.mp3"
+        "audio/background-01-02-reflection.mp3"
       ]
     }
   },
@@ -1655,14 +1609,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-05-02-process-1.mp3",
-        "audio/lesson-05-02-process-2.mp3",
-        "audio/lesson-05-02-process-3.mp3",
-        "audio/lesson-05-02-process-4.mp3",
-        "audio/lesson-05-02-process-5.mp3"
+        "audio/background-05-02-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-05-02-reflection.mp3"
+        "audio/background-05-02-reflection.mp3"
       ]
     }
   },
@@ -1745,14 +1695,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-01-03-process-1.mp3",
-        "audio/lesson-01-03-process-2.mp3",
-        "audio/lesson-01-03-process-3.mp3",
-        "audio/lesson-01-03-process-4.mp3",
-        "audio/lesson-01-03-process-5.mp3"
+        "audio/background-01-03-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-01-03-reflection.mp3"
+        "audio/background-01-03-reflection.mp3"
       ]
     }
   },
@@ -1862,14 +1808,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-05-03-process-1.mp3",
-        "audio/lesson-05-03-process-2.mp3",
-        "audio/lesson-05-03-process-3.mp3",
-        "audio/lesson-05-03-process-4.mp3",
-        "audio/lesson-05-03-process-5.mp3"
+        "audio/background-05-03-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-05-03-reflection.mp3"
+        "audio/background-05-03-reflection.mp3"
       ]
     }
   },
@@ -1939,13 +1881,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-01-04-process-1.mp3",
-        "audio/lesson-01-04-process-2.mp3",
-        "audio/lesson-01-04-process-3.mp3",
-        "audio/lesson-01-04-process-4.mp3"
+        "audio/background-01-04-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-01-04-reflection.mp3"
+        "audio/background-01-04-reflection.mp3"
       ]
     }
   },
@@ -2046,15 +1985,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-05-04-process-1.mp3",
-        "audio/lesson-05-04-process-2.mp3",
-        "audio/lesson-05-04-process-3.mp3",
-        "audio/lesson-05-04-process-4.mp3",
-        "audio/lesson-05-04-process-5.mp3",
-        "audio/lesson-05-04-process-6.mp3"
+        "audio/background-05-04-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-05-04-reflection.mp3"
+        "audio/background-05-04-reflection.mp3"
       ]
     }
   },
@@ -2123,13 +2057,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-01-05-process-1.mp3",
-        "audio/lesson-01-05-process-2.mp3",
-        "audio/lesson-01-05-process-3.mp3",
-        "audio/lesson-01-05-process-4.mp3"
+        "audio/background-01-05-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-01-05-reflection.mp3"
+        "audio/background-01-05-reflection.mp3"
       ]
     }
   },
@@ -2209,14 +2140,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-05-05-process-1.mp3",
-        "audio/lesson-05-05-process-2.mp3",
-        "audio/lesson-05-05-process-3.mp3",
-        "audio/lesson-05-05-process-4.mp3",
-        "audio/lesson-05-05-process-5.mp3"
+        "audio/background-05-05-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-05-05-reflection.mp3"
+        "audio/background-05-05-reflection.mp3"
       ]
     }
   },
@@ -2318,14 +2245,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-01-06-process-1.mp3",
-        "audio/lesson-01-06-process-2.mp3",
-        "audio/lesson-01-06-process-3.mp3",
-        "audio/lesson-01-06-process-4.mp3",
-        "audio/lesson-01-06-process-5.mp3"
+        "audio/background-01-06-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-01-06-reflection.mp3"
+        "audio/background-01-06-reflection.mp3"
       ]
     }
   },
@@ -2435,15 +2358,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-05-06-process-1.mp3",
-        "audio/lesson-05-06-process-2.mp3",
-        "audio/lesson-05-06-process-3.mp3",
-        "audio/lesson-05-06-process-4.mp3",
-        "audio/lesson-05-06-process-5.mp3",
-        "audio/lesson-05-06-process-6.mp3"
+        "audio/background-05-06-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-05-06-reflection.mp3"
+        "audio/background-05-06-reflection.mp3"
       ]
     }
   },
@@ -2526,13 +2444,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-01-07-process-1.mp3",
-        "audio/lesson-01-07-process-2.mp3",
-        "audio/lesson-01-07-process-3.mp3",
-        "audio/lesson-01-07-process-4.mp3"
+        "audio/background-01-07-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-01-07-reflection.mp3"
+        "audio/background-01-07-reflection.mp3"
       ]
     }
   },
@@ -2613,14 +2528,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-05-07-process-1.mp3",
-        "audio/lesson-05-07-process-2.mp3",
-        "audio/lesson-05-07-process-3.mp3",
-        "audio/lesson-05-07-process-4.mp3",
-        "audio/lesson-05-07-process-5.mp3"
+        "audio/background-05-07-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-05-07-reflection.mp3"
+        "audio/background-05-07-reflection.mp3"
       ]
     }
   },
@@ -2698,14 +2609,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-01-08-process-1.mp3",
-        "audio/lesson-01-08-process-2.mp3",
-        "audio/lesson-01-08-process-3.mp3",
-        "audio/lesson-01-08-process-4.mp3",
-        "audio/lesson-01-08-process-5.mp3"
+        "audio/background-01-08-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-01-08-reflection.mp3"
+        "audio/background-01-08-reflection.mp3"
       ]
     }
   },
@@ -2779,12 +2686,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-05-08-process-1.mp3",
-        "audio/lesson-05-08-process-2.mp3",
-        "audio/lesson-05-08-process-3.mp3"
+        "audio/background-05-08-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-05-08-reflection.mp3"
+        "audio/background-05-08-reflection.mp3"
       ]
     }
   },
@@ -2865,13 +2770,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-01-09-process-1.mp3",
-        "audio/lesson-01-09-process-2.mp3",
-        "audio/lesson-01-09-process-3.mp3",
-        "audio/lesson-01-09-process-4.mp3"
+        "audio/background-01-09-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-01-09-reflection.mp3"
+        "audio/background-01-09-reflection.mp3"
       ]
     }
   },
@@ -2988,13 +2890,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-05-09-process-1.mp3",
-        "audio/lesson-05-09-process-2.mp3",
-        "audio/lesson-05-09-process-3.mp3",
-        "audio/lesson-05-09-process-4.mp3"
+        "audio/background-05-09-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-05-09-reflection.mp3"
+        "audio/background-05-09-reflection.mp3"
       ]
     }
   },
@@ -3074,13 +2973,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-01-10-process-1.mp3",
-        "audio/lesson-01-10-process-2.mp3",
-        "audio/lesson-01-10-process-3.mp3",
-        "audio/lesson-01-10-process-4.mp3"
+        "audio/background-01-10-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-01-10-reflection.mp3"
+        "audio/background-01-10-reflection.mp3"
       ]
     }
   },
@@ -3165,14 +3061,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-05-10-process-1.mp3",
-        "audio/lesson-05-10-process-2.mp3",
-        "audio/lesson-05-10-process-3.mp3",
-        "audio/lesson-05-10-process-4.mp3",
-        "audio/lesson-05-10-process-5.mp3"
+        "audio/background-05-10-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-05-10-reflection.mp3"
+        "audio/background-05-10-reflection.mp3"
       ]
     }
   },
@@ -3254,13 +3146,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-01-11-process-1.mp3",
-        "audio/lesson-01-11-process-2.mp3",
-        "audio/lesson-01-11-process-3.mp3",
-        "audio/lesson-01-11-process-4.mp3"
+        "audio/background-01-11-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-01-11-reflection.mp3"
+        "audio/background-01-11-reflection.mp3"
       ]
     }
   },
@@ -3345,13 +3234,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-05-11-process-1.mp3",
-        "audio/lesson-05-11-process-2.mp3",
-        "audio/lesson-05-11-process-3.mp3",
-        "audio/lesson-05-11-process-4.mp3"
+        "audio/background-05-11-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-05-11-reflection.mp3"
+        "audio/background-05-11-reflection.mp3"
       ]
     }
   },
@@ -3428,13 +3314,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-01-12-process-1.mp3",
-        "audio/lesson-01-12-process-2.mp3",
-        "audio/lesson-01-12-process-3.mp3",
-        "audio/lesson-01-12-process-4.mp3"
+        "audio/background-01-12-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-01-12-reflection.mp3"
+        "audio/background-01-12-reflection.mp3"
       ]
     }
   },
@@ -3521,14 +3404,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-05-12-process-1.mp3",
-        "audio/lesson-05-12-process-2.mp3",
-        "audio/lesson-05-12-process-3.mp3",
-        "audio/lesson-05-12-process-4.mp3",
-        "audio/lesson-05-12-process-5.mp3"
+        "audio/background-05-12-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-05-12-reflection.mp3"
+        "audio/background-05-12-reflection.mp3"
       ]
     }
   },
@@ -3643,14 +3522,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-02-01-process-1.mp3",
-        "audio/lesson-02-01-process-2.mp3",
-        "audio/lesson-02-01-process-3.mp3",
-        "audio/lesson-02-01-process-4.mp3",
-        "audio/lesson-02-01-process-5.mp3"
+        "audio/background-02-01-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-02-01-reflection.mp3"
+        "audio/background-02-01-reflection.mp3"
       ]
     }
   },
@@ -3750,14 +3625,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-06-01-process-1.mp3",
-        "audio/lesson-06-01-process-2.mp3",
-        "audio/lesson-06-01-process-3.mp3",
-        "audio/lesson-06-01-process-4.mp3",
-        "audio/lesson-06-01-process-5.mp3"
+        "audio/background-06-01-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-06-01-reflection.mp3"
+        "audio/background-06-01-reflection.mp3"
       ]
     }
   },
@@ -3835,14 +3706,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-02-02-process-1.mp3",
-        "audio/lesson-02-02-process-2.mp3",
-        "audio/lesson-02-02-process-3.mp3",
-        "audio/lesson-02-02-process-4.mp3",
-        "audio/lesson-02-02-process-5.mp3"
+        "audio/background-02-02-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-02-02-reflection.mp3"
+        "audio/background-02-02-reflection.mp3"
       ]
     }
   },
@@ -3925,14 +3792,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-06-02-process-1.mp3",
-        "audio/lesson-06-02-process-2.mp3",
-        "audio/lesson-06-02-process-3.mp3",
-        "audio/lesson-06-02-process-4.mp3",
-        "audio/lesson-06-02-process-5.mp3"
+        "audio/background-06-02-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-06-02-reflection.mp3"
+        "audio/background-06-02-reflection.mp3"
       ]
     }
   },
@@ -4009,14 +3872,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-02-03-process-1.mp3",
-        "audio/lesson-02-03-process-2.mp3",
-        "audio/lesson-02-03-process-3.mp3",
-        "audio/lesson-02-03-process-4.mp3",
-        "audio/lesson-02-03-process-5.mp3"
+        "audio/background-02-03-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-02-03-reflection.mp3"
+        "audio/background-02-03-reflection.mp3"
       ]
     }
   },
@@ -4122,15 +3981,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-06-03-process-1.mp3",
-        "audio/lesson-06-03-process-2.mp3",
-        "audio/lesson-06-03-process-3.mp3",
-        "audio/lesson-06-03-process-4.mp3",
-        "audio/lesson-06-03-process-5.mp3",
-        "audio/lesson-06-03-process-6.mp3"
+        "audio/background-06-03-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-06-03-reflection.mp3"
+        "audio/background-06-03-reflection.mp3"
       ]
     }
   },
@@ -4244,14 +4098,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-02-04-process-1.mp3",
-        "audio/lesson-02-04-process-2.mp3",
-        "audio/lesson-02-04-process-3.mp3",
-        "audio/lesson-02-04-process-4.mp3",
-        "audio/lesson-02-04-process-5.mp3"
+        "audio/background-02-04-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-02-04-reflection.mp3"
+        "audio/background-02-04-reflection.mp3"
       ]
     }
   },
@@ -4359,15 +4209,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-06-04-process-1.mp3",
-        "audio/lesson-06-04-process-2.mp3",
-        "audio/lesson-06-04-process-3.mp3",
-        "audio/lesson-06-04-process-4.mp3",
-        "audio/lesson-06-04-process-5.mp3",
-        "audio/lesson-06-04-process-6.mp3"
+        "audio/background-06-04-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-06-04-reflection.mp3"
+        "audio/background-06-04-reflection.mp3"
       ]
     }
   },
@@ -4471,14 +4316,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-02-05-process-1.mp3",
-        "audio/lesson-02-05-process-2.mp3",
-        "audio/lesson-02-05-process-3.mp3",
-        "audio/lesson-02-05-process-4.mp3",
-        "audio/lesson-02-05-process-5.mp3"
+        "audio/background-02-05-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-02-05-reflection.mp3"
+        "audio/background-02-05-reflection.mp3"
       ]
     }
   },
@@ -4584,14 +4425,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-07-01-process-1.mp3",
-        "audio/lesson-07-01-process-2.mp3",
-        "audio/lesson-07-01-process-3.mp3",
-        "audio/lesson-07-01-process-4.mp3",
-        "audio/lesson-07-01-process-5.mp3"
+        "audio/background-07-01-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-07-01-reflection.mp3"
+        "audio/background-07-01-reflection.mp3"
       ]
     }
   },
@@ -4690,14 +4527,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-02-06-process-1.mp3",
-        "audio/lesson-02-06-process-2.mp3",
-        "audio/lesson-02-06-process-3.mp3",
-        "audio/lesson-02-06-process-4.mp3",
-        "audio/lesson-02-06-process-5.mp3"
+        "audio/background-02-06-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-02-06-reflection.mp3"
+        "audio/background-02-06-reflection.mp3"
       ]
     }
   },
@@ -4790,13 +4623,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-07-02-process-1.mp3",
-        "audio/lesson-07-02-process-2.mp3",
-        "audio/lesson-07-02-process-3.mp3",
-        "audio/lesson-07-02-process-4.mp3"
+        "audio/background-07-02-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-07-02-reflection.mp3"
+        "audio/background-07-02-reflection.mp3"
       ]
     }
   },
@@ -4907,14 +4737,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-02-07-process-1.mp3",
-        "audio/lesson-02-07-process-2.mp3",
-        "audio/lesson-02-07-process-3.mp3",
-        "audio/lesson-02-07-process-4.mp3",
-        "audio/lesson-02-07-process-5.mp3"
+        "audio/background-02-07-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-02-07-reflection.mp3"
+        "audio/background-02-07-reflection.mp3"
       ]
     }
   },
@@ -5007,13 +4833,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-07-03-process-1.mp3",
-        "audio/lesson-07-03-process-2.mp3",
-        "audio/lesson-07-03-process-3.mp3",
-        "audio/lesson-07-03-process-4.mp3"
+        "audio/background-07-03-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-07-03-reflection.mp3"
+        "audio/background-07-03-reflection.mp3"
       ]
     }
   },
@@ -5115,14 +4938,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-02-08-process-1.mp3",
-        "audio/lesson-02-08-process-2.mp3",
-        "audio/lesson-02-08-process-3.mp3",
-        "audio/lesson-02-08-process-4.mp3",
-        "audio/lesson-02-08-process-5.mp3"
+        "audio/background-02-08-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-02-08-reflection.mp3"
+        "audio/background-02-08-reflection.mp3"
       ]
     }
   },
@@ -5169,10 +4988,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-07-04-process-1.mp3"
+        "audio/background-07-04-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-07-04-reflection.mp3"
+        "audio/background-07-04-reflection.mp3"
       ]
     }
   },
@@ -5251,14 +5070,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-02-09-process-1.mp3",
-        "audio/lesson-02-09-process-2.mp3",
-        "audio/lesson-02-09-process-3.mp3",
-        "audio/lesson-02-09-process-4.mp3",
-        "audio/lesson-02-09-process-5.mp3"
+        "audio/background-02-09-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-02-09-reflection.mp3"
+        "audio/background-02-09-reflection.mp3"
       ]
     }
   },
@@ -5376,15 +5191,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-07-05-process-1.mp3",
-        "audio/lesson-07-05-process-2.mp3",
-        "audio/lesson-07-05-process-3.mp3",
-        "audio/lesson-07-05-process-4.mp3",
-        "audio/lesson-07-05-process-5.mp3",
-        "audio/lesson-07-05-process-6.mp3"
+        "audio/background-07-05-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-07-05-reflection.mp3"
+        "audio/background-07-05-reflection.mp3"
       ]
     }
   },
@@ -5478,14 +5288,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-02-10-process-1.mp3",
-        "audio/lesson-02-10-process-2.mp3",
-        "audio/lesson-02-10-process-3.mp3",
-        "audio/lesson-02-10-process-4.mp3",
-        "audio/lesson-02-10-process-5.mp3"
+        "audio/background-02-10-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-02-10-reflection.mp3"
+        "audio/background-02-10-reflection.mp3"
       ]
     }
   },
@@ -5594,15 +5400,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-07-06-process-1.mp3",
-        "audio/lesson-07-06-process-2.mp3",
-        "audio/lesson-07-06-process-3.mp3",
-        "audio/lesson-07-06-process-4.mp3",
-        "audio/lesson-07-06-process-5.mp3",
-        "audio/lesson-07-06-process-6.mp3"
+        "audio/background-07-06-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-07-06-reflection.mp3"
+        "audio/background-07-06-reflection.mp3"
       ]
     }
   },
@@ -5673,13 +5474,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-03-01-process-1.mp3",
-        "audio/lesson-03-01-process-2.mp3",
-        "audio/lesson-03-01-process-3.mp3",
-        "audio/lesson-03-01-process-4.mp3"
+        "audio/background-03-01-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-03-01-reflection.mp3"
+        "audio/background-03-01-reflection.mp3"
       ]
     }
   },
@@ -5750,13 +5548,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-03-02-process-1.mp3",
-        "audio/lesson-03-02-process-2.mp3",
-        "audio/lesson-03-02-process-3.mp3",
-        "audio/lesson-03-02-process-4.mp3"
+        "audio/background-03-02-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-03-02-reflection.mp3"
+        "audio/background-03-02-reflection.mp3"
       ]
     }
   },
@@ -5923,15 +5718,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-03-03-process-1.mp3",
-        "audio/lesson-03-03-process-2.mp3",
-        "audio/lesson-03-03-process-3.mp3",
-        "audio/lesson-03-03-process-4.mp3",
-        "audio/lesson-03-03-process-5.mp3",
-        "audio/lesson-03-03-process-6.mp3"
+        "audio/background-03-03-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-03-03-reflection.mp3"
+        "audio/background-03-03-reflection.mp3"
       ]
     }
   },
@@ -6001,13 +5791,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-03-04-process-1.mp3",
-        "audio/lesson-03-04-process-2.mp3",
-        "audio/lesson-03-04-process-3.mp3",
-        "audio/lesson-03-04-process-4.mp3"
+        "audio/background-03-04-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-03-04-reflection.mp3"
+        "audio/background-03-04-reflection.mp3"
       ]
     }
   },
@@ -6075,13 +5862,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-03-05-process-1.mp3",
-        "audio/lesson-03-05-process-2.mp3",
-        "audio/lesson-03-05-process-3.mp3",
-        "audio/lesson-03-05-process-4.mp3"
+        "audio/background-03-05-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-03-05-reflection.mp3"
+        "audio/background-03-05-reflection.mp3"
       ]
     }
   },
@@ -6177,14 +5961,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-03-06-process-1.mp3",
-        "audio/lesson-03-06-process-2.mp3",
-        "audio/lesson-03-06-process-3.mp3",
-        "audio/lesson-03-06-process-4.mp3",
-        "audio/lesson-03-06-process-5.mp3"
+        "audio/background-03-06-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-03-06-reflection.mp3"
+        "audio/background-03-06-reflection.mp3"
       ]
     }
   },
@@ -6252,13 +6032,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-03-07-process-1.mp3",
-        "audio/lesson-03-07-process-2.mp3",
-        "audio/lesson-03-07-process-3.mp3",
-        "audio/lesson-03-07-process-4.mp3"
+        "audio/background-03-07-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-03-07-reflection.mp3"
+        "audio/background-03-07-reflection.mp3"
       ]
     }
   },
@@ -6349,15 +6126,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-04-01-process-1.mp3",
-        "audio/lesson-04-01-process-2.mp3",
-        "audio/lesson-04-01-process-3.mp3",
-        "audio/lesson-04-01-process-4.mp3",
-        "audio/lesson-04-01-process-5.mp3",
-        "audio/lesson-04-01-process-6.mp3"
+        "audio/background-04-01-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-04-01-reflection.mp3"
+        "audio/background-04-01-reflection.mp3"
       ]
     }
   },
@@ -6461,15 +6233,10 @@ window.LESSONS = [
     ],
     "audio": {
       "process": [
-        "audio/lesson-04-02-process-1.mp3",
-        "audio/lesson-04-02-process-2.mp3",
-        "audio/lesson-04-02-process-3.mp3",
-        "audio/lesson-04-02-process-4.mp3",
-        "audio/lesson-04-02-process-5.mp3",
-        "audio/lesson-04-02-process-6.mp3"
+        "audio/background-04-02-process.mp3"
       ],
       "reflection": [
-        "audio/lesson-04-02-reflection.mp3"
+        "audio/background-04-02-reflection.mp3"
       ]
     }
   }

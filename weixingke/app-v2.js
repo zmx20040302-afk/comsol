@@ -112,10 +112,10 @@
 
   function resolveAudioSource(path) {
     var packed = audioPacks[path];
-    if (!packed) return Promise.resolve(path + "?v=4");
+    if (!packed) return Promise.resolve(path + "?v=5");
     var firstByte = packed.offset;
     var lastByte = packed.offset + packed.length - 1;
-    return fetch(packed.pack + "?v=4", {
+    return fetch(packed.pack + "?v=5", {
       headers: { Range: "bytes=" + firstByte + "-" + lastByte }
     }).then(function (response) {
       if (!response.ok) throw new Error("audio download failed");
@@ -149,6 +149,7 @@
       activeObjectUrl = source.indexOf("blob:") === 0 ? source : "";
       el.audio.src = source;
       el.audio.playbackRate = state.speed;
+      el.audio.loop = state.loop && paths.length === 1;
       el.audio.load();
       if (restorePosition) {
         el.audio.addEventListener("loadedmetadata", function restore() {
@@ -212,6 +213,18 @@
     if (playback && typeof playback.catch === "function") playback.catch(function () { showToast("请再点一次播放，允许浏览器开启声音"); });
   }
 
+  function updateMediaPosition() {
+    if (!("mediaSession" in navigator) || typeof navigator.mediaSession.setPositionState !== "function") return;
+    if (!isFinite(el.audio.duration) || el.audio.duration <= 0) return;
+    try {
+      navigator.mediaSession.setPositionState({
+        duration: el.audio.duration,
+        playbackRate: el.audio.playbackRate || 1,
+        position: Math.min(el.audio.currentTime || 0, el.audio.duration)
+      });
+    } catch (_error) { /* Optional lock-screen progress. */ }
+  }
+
   function updateMediaSession() {
     if (!("mediaSession" in navigator) || !("MediaMetadata" in window)) return;
     var item = currentItem();
@@ -256,20 +269,21 @@
   el.playPause.addEventListener("click", function () { if (el.audio.paused) playAudio(); else el.audio.pause(); });
   el.back.addEventListener("click", function () { el.audio.currentTime = Math.max(0, el.audio.currentTime - 10); });
   el.forward.addEventListener("click", function () { el.audio.currentTime = Math.min(el.audio.duration || 0, el.audio.currentTime + 10); });
-  el.loop.addEventListener("click", function () { state.loop = !state.loop; el.loop.textContent = "循环：" + (state.loop ? "开" : "关"); el.loop.setAttribute("aria-pressed", String(state.loop)); saveState(); });
+  el.loop.addEventListener("click", function () { state.loop = !state.loop; el.audio.loop = state.loop && currentAudioPaths().length === 1; el.loop.textContent = "循环：" + (state.loop ? "开" : "关"); el.loop.setAttribute("aria-pressed", String(state.loop)); saveState(); });
   el.continuous.addEventListener("click", function () { state.continuous = !state.continuous; el.continuous.textContent = "过程后接反思：" + (state.continuous ? "开" : "关"); el.continuous.setAttribute("aria-pressed", String(state.continuous)); saveState(); });
   el.speed.addEventListener("change", function () { state.speed = Number(el.speed.value) || 1; el.audio.playbackRate = state.speed; saveState(); });
   el.range.addEventListener("input", function () { if (el.audio.duration) el.audio.currentTime = (Number(el.range.value) / 1000) * el.audio.duration; });
 
-  el.audio.addEventListener("play", function () { el.playPause.textContent = "暂停"; el.playPause.setAttribute("aria-label", "暂停"); });
-  el.audio.addEventListener("pause", function () { el.playPause.textContent = "播放"; el.playPause.setAttribute("aria-label", "播放"); state.positions[currentPositionKey()] = el.audio.currentTime || 0; saveState(); });
-  el.audio.addEventListener("loadedmetadata", function () { el.duration.textContent = formatTime(el.audio.duration); });
+  el.audio.addEventListener("play", function () { el.playPause.textContent = "暂停"; el.playPause.setAttribute("aria-label", "暂停"); if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "playing"; updateMediaPosition(); });
+  el.audio.addEventListener("pause", function () { el.playPause.textContent = "播放"; el.playPause.setAttribute("aria-label", "播放"); if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "paused"; state.positions[currentPositionKey()] = el.audio.currentTime || 0; saveState(); });
+  el.audio.addEventListener("loadedmetadata", function () { el.duration.textContent = formatTime(el.audio.duration); updateMediaPosition(); });
   el.audio.addEventListener("timeupdate", function () {
     el.current.textContent = formatTime(el.audio.currentTime);
     el.duration.textContent = formatTime(el.audio.duration);
     el.range.value = el.audio.duration ? String(Math.round((el.audio.currentTime / el.audio.duration) * 1000)) : "0";
     state.positions[currentPositionKey()] = el.audio.currentTime || 0;
     if (Math.floor(el.audio.currentTime) % 5 === 0) saveState();
+    if (Math.floor(el.audio.currentTime) % 2 === 0) updateMediaPosition();
     updateActiveBlock();
   });
   el.audio.addEventListener("ended", function () {
