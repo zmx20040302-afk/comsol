@@ -17,7 +17,7 @@
   <link rel="manifest" href="manifest.webmanifest?v=14">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
-  <link rel="stylesheet" href="styles.css?v=14">
+  <link rel="stylesheet" href="styles.css?v=17">
   <script>
     window.addEventListener("load", function () {
       if ("serviceWorker" in navigator) {
@@ -187,8 +187,6 @@
     <button id="stopTimerButton" type="button">停止</button>
   </div>
 
-  <audio id="narrationAudio" class="narration-audio" preload="auto" playsinline webkit-playsinline="true" x5-playsinline="true" x-webkit-airplay="allow" aria-hidden="true"></audio>
-
   <section class="speech-dock" id="speechDock" aria-label="朗诵控制" aria-live="polite" hidden>
     <div class="speech-status">
       <span class="speech-pulse" aria-hidden="true"></span>
@@ -197,6 +195,7 @@
         <small id="speechStatusText">正在准备朗诵…</small>
       </div>
     </div>
+    <audio id="narrationAudio" class="narration-audio" controls preload="auto" playsinline webkit-playsinline="true" x5-playsinline="true" x-webkit-airplay="allow" controlslist="nodownload noplaybackrate" aria-label="系统音频播放条"></audio>
     <div class="speech-controls">
       <label for="speechRateSelect">语速</label>
       <select id="speechRateSelect" aria-label="朗诵语速">
@@ -211,8 +210,8 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
-  <script src="cards-data.js?v=16"></script>
-  <script src="background-audio-index.js?v=16"></script>
-  <script src="app.js?v=16"></script>
+  <script src="cards-data.js?v=17"></script>
+  <script src="background-audio-index.js?v=17"></script>
+  <script src="app.js?v=17"></script>
 </body>
 </html>

@@ -39,6 +39,13 @@
   let wakeLock = null;
   let usingRecordedAudio = false;
   let usingBackgroundPlaylist = false;
+  let backgroundResumeTimer = null;
+
+  function requestPlaybackSession() {
+    try {
+      if (navigator.audioSession && "type" in navigator.audioSession) navigator.audioSession.type = "playback";
+    } catch { /* Audio Session is experimental and optional. */ }
+  }
 
   function loadState() {
     try { return { ...defaultState, ...JSON.parse(localStorage.getItem(storageKey) || "{}") }; }
@@ -390,6 +397,7 @@
   }
 
   function updateMediaSession(card) {
+    requestPlaybackSession();
     if (!("mediaSession" in navigator) || !("MediaMetadata" in window)) return;
     navigator.mediaSession.metadata = new MediaMetadata({
       title: `第${card.id}题 · ${card.question}`,
@@ -426,6 +434,7 @@
     audio.load();
     elements.speechStatusText.textContent = `正在播放固定音频 · 第${card.id}题`;
     updateMediaSession(card);
+    requestPlaybackSession();
     const playback = audio.play();
     if (playback && typeof playback.then === "function") {
       playback.then(() => {
@@ -467,6 +476,7 @@
     const begin = () => {
       if (!speechMode || runId !== speechRunId || !usingBackgroundPlaylist) return;
       seekBackgroundCard(speechCardIndex);
+      requestPlaybackSession();
       const playback = audio.play();
       if (playback && typeof playback.then === "function") {
         playback.then(() => {
@@ -506,7 +516,7 @@
   function toggleSpeechPause() {
     if (!speechMode) return;
     if (speechPaused) {
-      if (usingRecordedAudio) void elements.narrationAudio.play(); else window.speechSynthesis.resume();
+      if (usingRecordedAudio) { requestPlaybackSession(); void elements.narrationAudio.play(); } else window.speechSynthesis.resume();
       speechPaused = false;
       if (usingRecordedAudio && "mediaSession" in navigator) navigator.mediaSession.playbackState = "playing";
     } else {
@@ -765,6 +775,43 @@
   });
   window.addEventListener("appinstalled", () => showToast("已安装到手机桌面"));
   window.addEventListener("beforeunload", () => { window.speechSynthesis?.cancel(); elements.narrationAudio.pause(); void releaseWakeLock(); });
+
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden || !speechMode || speechPaused || !usingRecordedAudio) return;
+    requestPlaybackSession();
+    clearTimeout(backgroundResumeTimer);
+    backgroundResumeTimer = setTimeout(() => {
+      if (document.hidden && speechMode && !speechPaused && elements.narrationAudio.paused) {
+        const playback = elements.narrationAudio.play();
+        if (playback && typeof playback.catch === "function") playback.catch(() => {});
+      }
+    }, 180);
+  });
+
+  elements.narrationAudio.addEventListener("play", () => {
+    if (!speechMode) return;
+    speechPaused = false;
+    requestPlaybackSession();
+    updateSpeechControls();
+    if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "playing";
+  });
+  elements.narrationAudio.addEventListener("pause", () => {
+    if (!speechMode) return;
+    if (!document.hidden) {
+      speechPaused = true;
+      updateSpeechControls();
+      return;
+    }
+    if (speechPaused || elements.narrationAudio.ended) return;
+    clearTimeout(backgroundResumeTimer);
+    backgroundResumeTimer = setTimeout(() => {
+      if (document.hidden && speechMode && !speechPaused && elements.narrationAudio.paused) {
+        requestPlaybackSession();
+        const playback = elements.narrationAudio.play();
+        if (playback && typeof playback.catch === "function") playback.catch(() => {});
+      }
+    }, 180);
+  });
 
   if (!cards.length) {
     elements.question.textContent = "题库加载失败，请刷新页面";

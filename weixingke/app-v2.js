@@ -3,9 +3,9 @@
 
   var categories = window.CATEGORIES || [];
   var items = window.LESSONS || [];
-  var audioPacks = window.AUDIO_PACKS || {};
-  var activeObjectUrl = "";
   var sourceRequestId = 0;
+  var playbackRequested = false;
+  var backgroundResumeTimer = null;
   var itemById = {};
   items.forEach(function (item) { itemById[item.id] = item; });
 
@@ -35,6 +35,12 @@
   };
   var activeBlockIndex = -1;
   var resumeAfterLoad = false;
+
+  function requestPlaybackSession() {
+    try {
+      if (navigator.audioSession && "type" in navigator.audioSession) navigator.audioSession.type = "playback";
+    } catch (_error) { /* Audio Session is experimental and optional. */ }
+  }
 
   function currentItem() { return items[state.itemIndex]; }
   function currentCategory() { return categories.find(function (category) { return category.id === currentItem().categoryId; }); }
@@ -111,21 +117,7 @@
   }
 
   function resolveAudioSource(path) {
-    var packed = audioPacks[path];
-    if (!packed) return Promise.resolve(path + "?v=5");
-    var firstByte = packed.offset;
-    var lastByte = packed.offset + packed.length - 1;
-    return fetch(packed.pack + "?v=5", {
-      headers: { Range: "bytes=" + firstByte + "-" + lastByte }
-    }).then(function (response) {
-      if (!response.ok) throw new Error("audio download failed");
-      return response.arrayBuffer().then(function (buffer) {
-        if (response.status === 206) return buffer;
-        return buffer.slice(firstByte, firstByte + packed.length);
-      });
-    }).then(function (buffer) {
-      return URL.createObjectURL(new Blob([buffer], { type: "audio/mpeg" }));
-    });
+    return Promise.resolve(path + "?v=6");
   }
 
   function setAudioSource(restorePosition) {
@@ -141,12 +133,7 @@
     el.nowPart.textContent = item.partLabels[state.part] + (paths.length > 1 ? " · " + (trackIndex + 1) + "/" + paths.length : "");
     updateMediaSession();
     return resolveAudioSource(paths[trackIndex]).then(function (source) {
-      if (requestId !== sourceRequestId) {
-        if (source.indexOf("blob:") === 0) URL.revokeObjectURL(source);
-        return;
-      }
-      if (activeObjectUrl) URL.revokeObjectURL(activeObjectUrl);
-      activeObjectUrl = source.indexOf("blob:") === 0 ? source : "";
+      if (requestId !== sourceRequestId) return;
       el.audio.src = source;
       el.audio.playbackRate = state.speed;
       el.audio.loop = state.loop && paths.length === 1;
@@ -209,8 +196,13 @@
   }
 
   function playAudio() {
+    playbackRequested = true;
+    requestPlaybackSession();
     var playback = el.audio.play();
-    if (playback && typeof playback.catch === "function") playback.catch(function () { showToast("请再点一次播放，允许浏览器开启声音"); });
+    if (playback && typeof playback.catch === "function") playback.catch(function () {
+      playbackRequested = false;
+      showToast("请再点一次播放，允许浏览器开启声音");
+    });
   }
 
   function updateMediaPosition() {
@@ -226,6 +218,7 @@
   }
 
   function updateMediaSession() {
+    requestPlaybackSession();
     if (!("mediaSession" in navigator) || !("MediaMetadata" in window)) return;
     var item = currentItem();
     navigator.mediaSession.metadata = new MediaMetadata({
@@ -266,7 +259,7 @@
   el.processTab.addEventListener("click", function () { selectPart("process", false); });
   el.reflectionTab.addEventListener("click", function () { selectPart("reflection", false); });
   el.playSection.addEventListener("click", playAudio);
-  el.playPause.addEventListener("click", function () { if (el.audio.paused) playAudio(); else el.audio.pause(); });
+  el.playPause.addEventListener("click", function () { if (el.audio.paused) playAudio(); else { playbackRequested = false; el.audio.pause(); } });
   el.back.addEventListener("click", function () { el.audio.currentTime = Math.max(0, el.audio.currentTime - 10); });
   el.forward.addEventListener("click", function () { el.audio.currentTime = Math.min(el.audio.duration || 0, el.audio.currentTime + 10); });
   el.loop.addEventListener("click", function () { state.loop = !state.loop; el.audio.loop = state.loop && currentAudioPaths().length === 1; el.loop.textContent = "循环：" + (state.loop ? "开" : "关"); el.loop.setAttribute("aria-pressed", String(state.loop)); saveState(); });
@@ -274,8 +267,25 @@
   el.speed.addEventListener("change", function () { state.speed = Number(el.speed.value) || 1; el.audio.playbackRate = state.speed; saveState(); });
   el.range.addEventListener("input", function () { if (el.audio.duration) el.audio.currentTime = (Number(el.range.value) / 1000) * el.audio.duration; });
 
-  el.audio.addEventListener("play", function () { el.playPause.textContent = "暂停"; el.playPause.setAttribute("aria-label", "暂停"); if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "playing"; updateMediaPosition(); });
-  el.audio.addEventListener("pause", function () { el.playPause.textContent = "播放"; el.playPause.setAttribute("aria-label", "播放"); if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "paused"; state.positions[currentPositionKey()] = el.audio.currentTime || 0; saveState(); });
+  el.audio.addEventListener("play", function () { playbackRequested = true; requestPlaybackSession(); el.playPause.textContent = "暂停"; el.playPause.setAttribute("aria-label", "暂停"); if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "playing"; updateMediaPosition(); });
+  el.audio.addEventListener("pause", function () {
+    el.playPause.textContent = "播放";
+    el.playPause.setAttribute("aria-label", "播放");
+    if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "paused";
+    state.positions[currentPositionKey()] = el.audio.currentTime || 0;
+    saveState();
+    if (!document.hidden) playbackRequested = false;
+    if (document.hidden && playbackRequested && !el.audio.ended) {
+      clearTimeout(backgroundResumeTimer);
+      backgroundResumeTimer = setTimeout(function () {
+        if (document.hidden && playbackRequested && el.audio.paused) {
+          requestPlaybackSession();
+          var retry = el.audio.play();
+          if (retry && typeof retry.catch === "function") retry.catch(function () {});
+        }
+      }, 180);
+    }
+  });
   el.audio.addEventListener("loadedmetadata", function () { el.duration.textContent = formatTime(el.audio.duration); updateMediaPosition(); });
   el.audio.addEventListener("timeupdate", function () {
     el.current.textContent = formatTime(el.audio.currentTime);
@@ -304,6 +314,7 @@
       return;
     }
     if (state.continuous && state.part === "process") { selectPart("reflection", true); return; }
+    playbackRequested = false;
     showToast("本篇朗读完成");
   });
   el.audio.addEventListener("error", function () { showToast("音频暂时没有加载成功，请刷新页面后重试"); });
@@ -311,11 +322,23 @@
   if ("mediaSession" in navigator) {
     try {
       navigator.mediaSession.setActionHandler("play", playAudio);
-      navigator.mediaSession.setActionHandler("pause", function () { el.audio.pause(); });
+      navigator.mediaSession.setActionHandler("pause", function () { playbackRequested = false; el.audio.pause(); });
       navigator.mediaSession.setActionHandler("seekbackward", function () { el.audio.currentTime = Math.max(0, el.audio.currentTime - 10); });
       navigator.mediaSession.setActionHandler("seekforward", function () { el.audio.currentTime = Math.min(el.audio.duration || 0, el.audio.currentTime + 10); });
     } catch (_error) { /* Optional lock-screen controls. */ }
   }
+
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden || !playbackRequested) return;
+    requestPlaybackSession();
+    clearTimeout(backgroundResumeTimer);
+    backgroundResumeTimer = setTimeout(function () {
+      if (document.hidden && playbackRequested && el.audio.paused && !el.audio.ended) {
+        var retry = el.audio.play();
+        if (retry && typeof retry.catch === "function") retry.catch(function () {});
+      }
+    }, 180);
+  });
 
   if (!items.length || !categories.length) {
     el.content.innerHTML = "<p>内容加载失败，请刷新页面。</p>";
