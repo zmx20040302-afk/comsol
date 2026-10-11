@@ -9,7 +9,7 @@
   var itemById = {};
   items.forEach(function (item) { itemById[item.id] = item; });
 
-  var storageKey = "shehui-story-audio-v1";
+  var storageKey = "shehui-story-audio-v2";
   var saved = {};
   try { saved = JSON.parse(localStorage.getItem(storageKey) || "{}"); } catch (_error) { saved = {}; }
 
@@ -19,7 +19,7 @@
     part: saved.part === "reflection" ? "reflection" : "process",
     loop: Boolean(saved.loop),
     continuous: saved.continuous !== false,
-    speed: [0.65, 0.8, 1].indexOf(Number(saved.speed)) >= 0 ? Number(saved.speed) : 0.8,
+    speed: [0.7, 0.9, 1.05].indexOf(Number(saved.speed)) >= 0 ? Number(saved.speed) : 0.9,
     positions: saved.positions || {},
     trackIndices: saved.trackIndices || {}
   };
@@ -117,7 +117,7 @@
   }
 
   function resolveAudioSource(path) {
-    return Promise.resolve(path + "?v=1");
+    return Promise.resolve(path + "?v=2");
   }
 
   function setAudioSource(restorePosition) {
