@@ -117,7 +117,7 @@
   }
 
   function resolveAudioSource(path) {
-    return Promise.resolve(path + "?v=2");
+    return Promise.resolve(path + "?v=3");
   }
 
   function setAudioSource(restorePosition) {
