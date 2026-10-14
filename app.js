@@ -362,13 +362,13 @@
   }
 
   function recordedAudioPath(card) {
-    const filename = `audio/card-${String(card.id).padStart(2, "0")}.mp3?v=16`;
+    const filename = `audio/card-${String(card.id).padStart(2, "0")}.mp3?v=18`;
     const bundledHost = /(^localhost$|^127\.0\.0\.1$|\.chatgpt\.site$|\.github\.io$)/i.test(location.hostname);
     return bundledHost ? filename : `https://luoyang-youshi-dabian-cards.benfeili64.chatgpt.site/${filename}`;
   }
 
   function backgroundAudioPath() {
-    const filename = "audio/all-cards-background.mp3?v=16";
+    const filename = "audio/all-cards-background.mp3?v=18";
     const bundledHost = /(^localhost$|^127\.0\.0\.1$|\.chatgpt\.site$|\.github\.io$)/i.test(location.hostname);
     return bundledHost ? filename : `https://luoyang-youshi-dabian-cards.benfeili64.chatgpt.site/${filename}`;
   }
@@ -432,6 +432,9 @@
     audio.setAttribute("webkit-playsinline", "true");
     audio.setAttribute("x5-playsinline", "true");
     audio.load();
+    audio.addEventListener("loadedmetadata", () => {
+      audio.playbackRate = Number(state.speechRate) || 1;
+    }, { once: true });
     elements.speechStatusText.textContent = `正在播放固定音频 · 第${card.id}题`;
     updateMediaSession(card);
     requestPlaybackSession();
@@ -475,6 +478,7 @@
 
     const begin = () => {
       if (!speechMode || runId !== speechRunId || !usingBackgroundPlaylist) return;
+      audio.playbackRate = Number(state.speechRate) || 1;
       seekBackgroundCard(speechCardIndex);
       requestPlaybackSession();
       const playback = audio.play();

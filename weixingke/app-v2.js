@@ -117,7 +117,7 @@
   }
 
   function resolveAudioSource(path) {
-    return Promise.resolve(path + "?v=6");
+    return Promise.resolve(path + "?v=7");
   }
 
   function setAudioSource(restorePosition) {
@@ -286,7 +286,11 @@
       }, 180);
     }
   });
-  el.audio.addEventListener("loadedmetadata", function () { el.duration.textContent = formatTime(el.audio.duration); updateMediaPosition(); });
+  el.audio.addEventListener("loadedmetadata", function () {
+    el.audio.playbackRate = state.speed;
+    el.duration.textContent = formatTime(el.audio.duration);
+    updateMediaPosition();
+  });
   el.audio.addEventListener("timeupdate", function () {
     el.current.textContent = formatTime(el.audio.currentTime);
     el.duration.textContent = formatTime(el.audio.duration);
