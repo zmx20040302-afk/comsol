@@ -117,7 +117,7 @@
   }
 
   function resolveAudioSource(path) {
-    return Promise.resolve(path + "?v=3");
+    return Promise.resolve(path + "?v=4");
   }
 
   function setAudioSource(restorePosition) {
@@ -223,7 +223,7 @@
     var item = currentItem();
     navigator.mediaSession.metadata = new MediaMetadata({
       title: item.title + " · " + item.partLabels[state.part],
-      artist: "小班社会故事微型课练习",
+      artist: "小班社会活动练习",
       album: item.kind === "template" ? "通用模板" : "对应教案"
     });
   }
@@ -286,7 +286,11 @@
       }, 180);
     }
   });
-  el.audio.addEventListener("loadedmetadata", function () { el.audio.playbackRate = state.speed; el.duration.textContent = formatTime(el.audio.duration); updateMediaPosition(); });
+  el.audio.addEventListener("loadedmetadata", function () {
+    el.audio.playbackRate = state.speed;
+    el.duration.textContent = formatTime(el.audio.duration);
+    updateMediaPosition();
+  });
   el.audio.addEventListener("timeupdate", function () {
     el.current.textContent = formatTime(el.audio.currentTime);
     el.duration.textContent = formatTime(el.audio.duration);
