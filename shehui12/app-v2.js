@@ -19,7 +19,7 @@
     part: saved.part === "reflection" ? "reflection" : "process",
     loop: Boolean(saved.loop),
     continuous: saved.continuous !== false,
-    speed: [0.7, 0.9, 1.05].indexOf(Number(saved.speed)) >= 0 ? Number(saved.speed) : 0.9,
+    speed: [0.7, 0.93, 1.05].indexOf(Number(saved.speed)) >= 0 ? Number(saved.speed) : 0.93,
     positions: saved.positions || {},
     trackIndices: saved.trackIndices || {}
   };
@@ -117,7 +117,7 @@
   }
 
   function resolveAudioSource(path) {
-    return Promise.resolve(path + "?v=4");
+    return Promise.resolve(path + "?v=5");
   }
 
   function setAudioSource(restorePosition) {
@@ -136,12 +136,12 @@
       if (requestId !== sourceRequestId) return;
       el.audio.src = source;
       el.audio.playbackRate = state.speed;
-      el.audio.loop = state.loop && paths.length === 1;
+      el.audio.loop = false;
       el.audio.load();
       if (restorePosition) {
         el.audio.addEventListener("loadedmetadata", function restore() {
           var position = Number(state.positions[currentPositionKey()]) || 0;
-          if (position > 0 && position < el.audio.duration - 3) el.audio.currentTime = position;
+          if (position > 0 && position < el.audio.duration - 0.25) el.audio.currentTime = position;
         }, { once: true });
       }
     }).catch(function () {
@@ -161,9 +161,9 @@
     el.reflectionTab.textContent = item.partLabels.reflection;
     el.processTab.setAttribute("aria-selected", String(state.part === "process"));
     el.reflectionTab.setAttribute("aria-selected", String(state.part === "reflection"));
-    el.continuous.textContent = "过程后接反思：" + (state.continuous ? "开" : "关");
+    el.continuous.textContent = "活动过程接反思：" + (state.continuous ? "开" : "关");
     el.continuous.setAttribute("aria-pressed", String(state.continuous));
-    el.loop.textContent = "循环：" + (state.loop ? "开" : "关");
+    el.loop.textContent = "分类循环：" + (state.loop ? "开" : "关");
     el.loop.setAttribute("aria-pressed", String(state.loop));
     el.speed.value = String(state.speed);
     renderContent();
@@ -171,19 +171,28 @@
     saveState();
   }
 
-  function selectItem(index) {
+  function selectItem(index, autoplay, startAtBeginning) {
     state.positions[currentPositionKey()] = el.audio.currentTime || 0;
     state.itemIndex = (index + items.length) % items.length;
     state.part = "process";
+    state.trackIndices[currentTrackKey()] = 0;
+    if (startAtBeginning) state.positions[currentPositionKey()] = 0;
+    if (autoplay) {
+      resumeAfterLoad = true;
+      el.audio.addEventListener("canplay", function resume() {
+        if (resumeAfterLoad) { resumeAfterLoad = false; playAudio(); }
+      }, { once: true });
+    }
     render();
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function selectPart(part, autoplay) {
+  function selectPart(part, autoplay, startAtBeginning) {
     if (part === state.part) { if (autoplay) playAudio(); return; }
     state.positions[currentPositionKey()] = el.audio.currentTime || 0;
     state.part = part;
     state.trackIndices[currentTrackKey()] = 0;
+    if (startAtBeginning) state.positions[currentPositionKey()] = 0;
     renderContent();
     el.processTab.setAttribute("aria-selected", String(part === "process"));
     el.reflectionTab.setAttribute("aria-selected", String(part === "reflection"));
@@ -193,6 +202,15 @@
       resumeAfterLoad = true;
       el.audio.addEventListener("canplay", function resume() { if (resumeAfterLoad) { resumeAfterLoad = false; playAudio(); } }, { once: true });
     }
+  }
+
+  function playNextItemInCategory() {
+    var category = currentCategory();
+    var currentIndex = category.itemIds.indexOf(currentItem().id);
+    var nextId = category.itemIds[(currentIndex + 1) % category.itemIds.length];
+    var nextIndex = items.findIndex(function (item) { return item.id === nextId; });
+    selectItem(nextIndex, true, true);
+    showToast("正在播放本分类下一篇");
   }
 
   function playAudio() {
@@ -262,8 +280,8 @@
   el.playPause.addEventListener("click", function () { if (el.audio.paused) playAudio(); else { playbackRequested = false; el.audio.pause(); } });
   el.back.addEventListener("click", function () { el.audio.currentTime = Math.max(0, el.audio.currentTime - 10); });
   el.forward.addEventListener("click", function () { el.audio.currentTime = Math.min(el.audio.duration || 0, el.audio.currentTime + 10); });
-  el.loop.addEventListener("click", function () { state.loop = !state.loop; el.audio.loop = state.loop && currentAudioPaths().length === 1; el.loop.textContent = "循环：" + (state.loop ? "开" : "关"); el.loop.setAttribute("aria-pressed", String(state.loop)); saveState(); });
-  el.continuous.addEventListener("click", function () { state.continuous = !state.continuous; el.continuous.textContent = "过程后接反思：" + (state.continuous ? "开" : "关"); el.continuous.setAttribute("aria-pressed", String(state.continuous)); saveState(); });
+  el.loop.addEventListener("click", function () { state.loop = !state.loop; el.audio.loop = false; el.loop.textContent = "分类循环：" + (state.loop ? "开" : "关"); el.loop.setAttribute("aria-pressed", String(state.loop)); saveState(); });
+  el.continuous.addEventListener("click", function () { state.continuous = !state.continuous; el.continuous.textContent = "活动过程接反思：" + (state.continuous ? "开" : "关"); el.continuous.setAttribute("aria-pressed", String(state.continuous)); saveState(); });
   el.speed.addEventListener("change", function () { state.speed = Number(el.speed.value) || 1; el.audio.playbackRate = state.speed; saveState(); });
   el.range.addEventListener("input", function () { if (el.audio.duration) el.audio.currentTime = (Number(el.range.value) / 1000) * el.audio.duration; });
 
@@ -310,14 +328,8 @@
       saveState();
       return;
     }
-    if (state.loop) {
-      state.trackIndices[currentTrackKey()] = 0;
-      setAudioSource(false);
-      el.audio.addEventListener("canplay", playAudio, { once: true });
-      saveState();
-      return;
-    }
-    if (state.continuous && state.part === "process") { selectPart("reflection", true); return; }
+    if (state.continuous && state.part === "process") { selectPart("reflection", true, true); return; }
+    if (state.loop && state.part === "reflection") { playNextItemInCategory(); return; }
     playbackRequested = false;
     showToast("本篇朗读完成");
   });
@@ -342,6 +354,11 @@
         if (retry && typeof retry.catch === "function") retry.catch(function () {});
       }
     }, 180);
+  });
+
+  window.addEventListener("pagehide", function () {
+    state.positions[currentPositionKey()] = el.audio.currentTime || 0;
+    saveState();
   });
 
   if (!items.length || !categories.length) {

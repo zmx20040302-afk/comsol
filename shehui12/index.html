@@ -8,7 +8,7 @@
   <meta name="format-detection" content="telephone=no">
   <title>小班社会活动过程与反思练习</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317365d'/%3E%3Cpath d='M18 16h24a6 6 0 0 1 6 6v24a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V18a2 2 0 0 1 2-2Z' fill='%23fff'/%3E%3Cpath d='M24 27h16M24 34h16M24 41h10' stroke='%231fa7a2' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
 </head>
 <body>
   <div class="page-shell">
@@ -53,7 +53,7 @@
 
       <div class="listening-row">
         <button id="playSectionButton" class="primary-play" type="button">播放当前内容</button>
-        <button id="continuousButton" type="button" aria-pressed="true">过程后接反思：开</button>
+        <button id="continuousButton" type="button" aria-pressed="true">活动过程接反思：开</button>
       </div>
 
       <article id="articleContent" class="article-content" aria-live="polite"></article>
@@ -66,7 +66,7 @@
         <strong id="nowPlayingTitle">故事理解与表达</strong>
         <span id="nowPlayingPart">完整展示脚本</span>
       </div>
-      <button id="loopButton" type="button" aria-pressed="false">循环：关</button>
+      <button id="loopButton" type="button" aria-pressed="false">分类循环：关</button>
     </div>
 
     <audio id="lessonAudio" class="audio-engine" controls preload="auto" playsinline webkit-playsinline="true" x5-playsinline="true" x-webkit-airplay="allow" controlslist="nodownload noplaybackrate" aria-label="系统音频播放条"></audio>
@@ -85,7 +85,7 @@
       <label class="speed-control">语速
         <select id="speedSelect" aria-label="朗读语速">
           <option value="0.7">慢速</option>
-          <option value="0.9" selected>正常语速</option>
+          <option value="0.93" selected>正常语速</option>
           <option value="1.05">稍快</option>
         </select>
       </label>
@@ -94,7 +94,7 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
-  <script src="content.js?v=4"></script>
-  <script src="app-v2.js?v=4"></script>
+  <script src="content.js?v=5"></script>
+  <script src="app-v2.js?v=5"></script>
 </body>
 </html>
