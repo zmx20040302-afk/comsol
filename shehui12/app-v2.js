@@ -6,6 +6,7 @@
   var sourceRequestId = 0;
   var playbackRequested = false;
   var backgroundResumeTimer = null;
+  var audioPrefetches = {};
   var itemById = {};
   items.forEach(function (item) { itemById[item.id] = item; });
 
@@ -19,7 +20,7 @@
     part: saved.part === "reflection" ? "reflection" : "process",
     loop: Boolean(saved.loop),
     continuous: saved.continuous !== false,
-    speed: [0.7, 0.93, 1.05].indexOf(Number(saved.speed)) >= 0 ? Number(saved.speed) : 0.93,
+    speed: [0.7, 0.9, 1.05].indexOf(Number(saved.speed)) >= 0 ? Number(saved.speed) : 0.9,
     positions: saved.positions || {},
     trackIndices: saved.trackIndices || {}
   };
@@ -116,8 +117,29 @@
     activeBlockIndex = -1;
   }
 
+  function versionedAudioUrl(path) {
+    return path + "?v=6";
+  }
+
+  function preloadAudioPath(path) {
+    if (!path || typeof window.fetch !== "function") return Promise.resolve();
+    if (!audioPrefetches[path]) {
+      audioPrefetches[path] = window.fetch(versionedAudioUrl(path), { cache: "force-cache" }).then(function (response) {
+        if (!response.ok) throw new Error("Audio prefetch failed");
+        return response.arrayBuffer();
+      }).then(function () { return true; }).catch(function () { return false; });
+    }
+    return audioPrefetches[path];
+  }
+
+  function preloadFollowingPart() {
+    if (!state.continuous || state.part !== "process") return;
+    (currentItem().audio.reflection || []).forEach(preloadAudioPath);
+  }
+
   function resolveAudioSource(path) {
-    return Promise.resolve(path + "?v=5");
+    var ready = audioPrefetches[path];
+    return ready ? ready.then(function () { return versionedAudioUrl(path); }) : Promise.resolve(versionedAudioUrl(path));
   }
 
   function setAudioSource(restorePosition) {
@@ -285,7 +307,7 @@
   el.speed.addEventListener("change", function () { state.speed = Number(el.speed.value) || 1; el.audio.playbackRate = state.speed; saveState(); });
   el.range.addEventListener("input", function () { if (el.audio.duration) el.audio.currentTime = (Number(el.range.value) / 1000) * el.audio.duration; });
 
-  el.audio.addEventListener("play", function () { playbackRequested = true; requestPlaybackSession(); el.playPause.textContent = "暂停"; el.playPause.setAttribute("aria-label", "暂停"); if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "playing"; updateMediaPosition(); });
+  el.audio.addEventListener("play", function () { playbackRequested = true; requestPlaybackSession(); preloadFollowingPart(); el.playPause.textContent = "暂停"; el.playPause.setAttribute("aria-label", "暂停"); if ("mediaSession" in navigator) navigator.mediaSession.playbackState = "playing"; updateMediaPosition(); });
   el.audio.addEventListener("pause", function () {
     el.playPause.textContent = "播放";
     el.playPause.setAttribute("aria-label", "播放");
