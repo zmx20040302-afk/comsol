@@ -19,7 +19,7 @@
     itemIndex: initialIndex,
     part: saved.part === "reflection" ? "reflection" : "process",
     loop: Boolean(saved.loop),
-    continuous: saved.continuous !== false,
+    continuous: true,
     speed: [0.7, 0.9, 1.05].indexOf(Number(saved.speed)) >= 0 ? Number(saved.speed) : 0.9,
     positions: saved.positions || {},
     trackIndices: saved.trackIndices || {}
@@ -29,7 +29,7 @@
   var el = {
     category: byId("categorySelect"), picker: byId("lessonPicker"), cards: byId("lessonCards"), count: byId("lessonCount"), openPicker: byId("openPickerButton"),
     field: byId("fieldBadge"), kind: byId("kindBadge"), title: byId("lessonTitle"), previous: byId("previousLesson"), next: byId("nextLesson"),
-    processTab: byId("scriptTab"), reflectionTab: byId("reflectionTab"), playSection: byId("playSectionButton"), continuous: byId("continuousButton"),
+    playSection: byId("playSectionButton"),
     content: byId("articleContent"), audio: byId("lessonAudio"), nowTitle: byId("nowPlayingTitle"), nowPart: byId("nowPlayingPart"),
     loop: byId("loopButton"), current: byId("currentTime"), duration: byId("durationTime"), range: byId("progressRange"),
     back: byId("backButton"), playPause: byId("playPauseButton"), forward: byId("forwardButton"), speed: byId("speedSelect"), toast: byId("toast")
@@ -102,23 +102,30 @@
   }
 
   function renderContent() {
-    var blocks = currentBlocks();
-    var total = blocks.reduce(function (sum, block) { return sum + Math.max(1, block.paragraphs.join("").length); }, 0) || 1;
-    var running = 0;
-    el.content.innerHTML = blocks.map(function (block) {
-      var start = running / total;
-      running += Math.max(1, block.paragraphs.join("").length);
-      var end = running / total;
-      var className = state.part === "reflection" ? "reflection-block" : "step-block";
-      return '<section class="reading-block ' + className + '" data-start="' + start + '" data-end="' + end + '">' +
-        '<h3 class="block-heading"><span>' + escapeHtml(block.heading) + '</span><small>' + escapeHtml(block.meta || "") + '</small></h3>' +
-        block.paragraphs.map(function (paragraph) { return '<p>' + formatText(paragraph) + '</p>'; }).join("") + '</section>';
-    }).join("");
+    var item = currentItem();
+    function renderPart(part, blocks) {
+      var total = blocks.reduce(function (sum, block) { return sum + Math.max(1, block.paragraphs.join("").length); }, 0) || 1;
+      var running = 0;
+      var label = item.partLabels[part];
+      var description = part === "process" ? "完整教案活动过程" : "紧接活动过程的完整反思";
+      return '<section class="part-section ' + part + (state.part === part ? ' current-part' : '') + '" data-part-section="' + part + '">' +
+        '<div class="part-heading"><span>' + escapeHtml(label) + '</span><small>' + description + '</small></div>' +
+        blocks.map(function (block) {
+          var start = running / total;
+          running += Math.max(1, block.paragraphs.join("").length);
+          var end = running / total;
+          var className = part === "reflection" ? "reflection-block" : "step-block";
+          return '<section class="reading-block ' + className + '" data-part="' + part + '" data-start="' + start + '" data-end="' + end + '">' +
+            '<h3 class="block-heading"><span>' + escapeHtml(block.heading) + '</span><small>' + escapeHtml(block.meta || "") + '</small></h3>' +
+            block.paragraphs.map(function (paragraph) { return '<p>' + formatText(paragraph) + '</p>'; }).join("") + '</section>';
+        }).join("") + '</section>';
+    }
+    el.content.innerHTML = renderPart("process", item.processBlocks) + renderPart("reflection", item.reflectionBlocks);
     activeBlockIndex = -1;
   }
 
   function versionedAudioUrl(path) {
-    return path + "?v=2";
+    return path + "?v=3";
   }
 
   function preloadAudioPath(path) {
@@ -179,12 +186,6 @@
     el.kind.textContent = item.kind === "template" ? "模板" : "教案";
     el.kind.className = "kind-badge " + item.kind;
     el.title.textContent = item.title;
-    el.processTab.textContent = item.partLabels.process;
-    el.reflectionTab.textContent = item.partLabels.reflection;
-    el.processTab.setAttribute("aria-selected", String(state.part === "process"));
-    el.reflectionTab.setAttribute("aria-selected", String(state.part === "reflection"));
-    el.continuous.textContent = "活动过程接反思：" + (state.continuous ? "开" : "关");
-    el.continuous.setAttribute("aria-pressed", String(state.continuous));
     el.loop.textContent = "分类循环：" + (state.loop ? "开" : "关");
     el.loop.setAttribute("aria-pressed", String(state.loop));
     el.speed.value = String(state.speed);
@@ -216,8 +217,6 @@
     state.trackIndices[currentTrackKey()] = 0;
     if (startAtBeginning) state.positions[currentPositionKey()] = 0;
     renderContent();
-    el.processTab.setAttribute("aria-selected", String(part === "process"));
-    el.reflectionTab.setAttribute("aria-selected", String(part === "reflection"));
     setAudioSource(true);
     saveState();
     if (autoplay) {
@@ -269,7 +268,7 @@
   }
 
   function updateActiveBlock() {
-    var blocks = Array.prototype.slice.call(el.content.querySelectorAll(".reading-block"));
+    var blocks = Array.prototype.slice.call(el.content.querySelectorAll('.reading-block[data-part="' + state.part + '"]'));
     var nextIndex = currentAudioPaths().length === blocks.length ? currentTrackIndex() : 0;
     if (currentAudioPaths().length === 1 && blocks.length > 1 && el.audio.duration) {
       var ratio = el.audio.currentTime / el.audio.duration;
@@ -296,14 +295,11 @@
   el.openPicker.addEventListener("click", function () { el.picker.scrollIntoView({ behavior: "smooth", block: "start" }); });
   el.previous.addEventListener("click", function () { selectItem(state.itemIndex - 1); });
   el.next.addEventListener("click", function () { selectItem(state.itemIndex + 1); });
-  el.processTab.addEventListener("click", function () { selectPart("process", false); });
-  el.reflectionTab.addEventListener("click", function () { selectPart("reflection", false); });
   el.playSection.addEventListener("click", playAudio);
   el.playPause.addEventListener("click", function () { if (el.audio.paused) playAudio(); else { playbackRequested = false; el.audio.pause(); } });
   el.back.addEventListener("click", function () { el.audio.currentTime = Math.max(0, el.audio.currentTime - 10); });
   el.forward.addEventListener("click", function () { el.audio.currentTime = Math.min(el.audio.duration || 0, el.audio.currentTime + 10); });
   el.loop.addEventListener("click", function () { state.loop = !state.loop; el.audio.loop = false; el.loop.textContent = "分类循环：" + (state.loop ? "开" : "关"); el.loop.setAttribute("aria-pressed", String(state.loop)); saveState(); });
-  el.continuous.addEventListener("click", function () { state.continuous = !state.continuous; el.continuous.textContent = "活动过程接反思：" + (state.continuous ? "开" : "关"); el.continuous.setAttribute("aria-pressed", String(state.continuous)); saveState(); });
   el.speed.addEventListener("change", function () { state.speed = Number(el.speed.value) || 1; el.audio.playbackRate = state.speed; saveState(); });
   el.range.addEventListener("input", function () { if (el.audio.duration) el.audio.currentTime = (Number(el.range.value) / 1000) * el.audio.duration; });
 
@@ -350,7 +346,7 @@
       saveState();
       return;
     }
-    if (state.continuous && state.part === "process") { selectPart("reflection", true, true); return; }
+    if (state.part === "process") { selectPart("reflection", true, true); return; }
     if (state.loop && state.part === "reflection") { playNextItemInCategory(); return; }
     playbackRequested = false;
     showToast("本篇朗读完成");

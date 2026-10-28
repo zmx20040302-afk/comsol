@@ -8,7 +8,7 @@
   <meta name="format-detection" content="telephone=no">
   <title>小班语言活动过程与反思练习</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317365d'/%3E%3Cpath d='M18 16h24a6 6 0 0 1 6 6v24a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V18a2 2 0 0 1 2-2Z' fill='%23fff'/%3E%3Cpath d='M24 27h16M24 34h16M24 41h10' stroke='%231fa7a2' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
   <div class="page-shell">
@@ -46,14 +46,9 @@
         </div>
       </div>
 
-      <div class="content-tabs" role="tablist" aria-label="选择内容">
-        <button id="scriptTab" type="button" role="tab" aria-selected="true">活动过程</button>
-        <button id="reflectionTab" type="button" role="tab" aria-selected="false">活动反思</button>
-      </div>
-
       <div class="listening-row">
-        <button id="playSectionButton" class="primary-play" type="button">播放当前内容</button>
-        <button id="continuousButton" type="button" aria-pressed="true">活动过程接反思：开</button>
+        <button id="playSectionButton" class="primary-play" type="button">播放本篇（活动过程＋活动反思）</button>
+        <span class="continuous-note">活动过程读完后自动接着朗读活动反思</span>
       </div>
 
       <article id="articleContent" class="article-content" aria-live="polite"></article>
@@ -94,7 +89,7 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
-  <script src="content.js?v=2"></script>
-  <script src="app-v2.js?v=2"></script>
+  <script src="content.js?v=3"></script>
+  <script src="app-v2.js?v=3"></script>
 </body>
 </html>
