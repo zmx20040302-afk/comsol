@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17365d">
+  <meta name="description" content="小班健康领域通用模板与24篇教案，支持手机文字阅读、有感情女声朗读和息屏播放。">
+  <meta name="format-detection" content="telephone=no">
+  <title>小班健康领域活动过程与反思练习</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317365d'/%3E%3Cpath d='M18 16h24a6 6 0 0 1 6 6v24a4 4 0 0 1-4 4H20a4 4 0 0 1-4-4V18a2 2 0 0 1 2-2Z' fill='%23fff'/%3E%3Cpath d='M24 27h16M24 34h16M24 41h10' stroke='%231fa7a2' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css?v=1">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <div>
+        <p class="eyebrow">小班 · 健康领域上下册</p>
+        <h1>活动过程与反思</h1>
+        <p class="header-note">1篇模板 + 24篇教案，有感情女声同步练习</p>
+      </div>
+      <button id="openPickerButton" class="picker-button" type="button" aria-controls="lessonPicker">选择篇目</button>
+    </header>
+
+    <section id="lessonPicker" class="lesson-picker" aria-label="选择练习篇目">
+      <div class="picker-heading">
+        <strong>选择模板或教案</strong>
+        <span id="lessonCount">1 / 13</span>
+      </div>
+      <label class="category-control" for="categorySelect">
+        <span>先选择分类</span>
+        <select id="categorySelect" aria-label="选择模板分类"></select>
+      </label>
+      <div id="lessonCards" class="lesson-cards"></div>
+    </section>
+
+    <main class="reading-surface">
+      <div class="article-heading">
+        <div>
+          <span id="fieldBadge" class="field-badge">小班健康</span>
+          <span id="kindBadge" class="kind-badge template">模板</span>
+          <h2 id="lessonTitle">健康领域通用模板</h2>
+        </div>
+        <div class="lesson-nav" aria-label="切换篇目">
+          <button id="previousLesson" type="button">上一篇</button>
+          <button id="nextLesson" type="button">下一篇</button>
+        </div>
+      </div>
+
+      <div class="content-tabs" role="tablist" aria-label="选择内容">
+        <button id="scriptTab" type="button" role="tab" aria-selected="true">活动过程</button>
+        <button id="reflectionTab" type="button" role="tab" aria-selected="false">活动反思</button>
+      </div>
+
+      <div class="listening-row">
+        <button id="playSectionButton" class="primary-play" type="button">播放当前内容</button>
+        <button id="continuousButton" type="button" aria-pressed="true">活动过程接反思：开</button>
+      </div>
+
+      <article id="articleContent" class="article-content" aria-live="polite"></article>
+    </main>
+  </div>
+
+  <section id="audioPlayer" class="audio-player" aria-label="朗读播放器">
+    <div class="now-playing">
+      <div>
+        <strong id="nowPlayingTitle">健康领域通用模板</strong>
+        <span id="nowPlayingPart">完整展示脚本</span>
+      </div>
+      <button id="loopButton" type="button" aria-pressed="false">本册循环：关</button>
+    </div>
+
+    <audio id="lessonAudio" class="audio-engine" controls preload="auto" playsinline webkit-playsinline="true" x5-playsinline="true" x-webkit-airplay="allow" controlslist="nodownload noplaybackrate" aria-label="系统音频播放条"></audio>
+    <p class="vivo-playback-tip">vivo息屏提示：先点播放，看到系统播放条开始走动后再锁屏。</p>
+
+    <div class="progress-row">
+      <span id="currentTime">00:00</span>
+      <input id="progressRange" type="range" min="0" max="1000" value="0" aria-label="播放进度">
+      <span id="durationTime">00:00</span>
+    </div>
+
+    <div class="player-controls">
+      <button id="backButton" type="button">后退10秒</button>
+      <button id="playPauseButton" class="round-play" type="button" aria-label="播放">播放</button>
+      <button id="forwardButton" type="button">前进10秒</button>
+      <label class="speed-control">语速
+        <select id="speedSelect" aria-label="朗读语速">
+          <option value="0.7">慢速</option>
+          <option value="0.9" selected>正常语速（0.9倍）</option>
+          <option value="1.05">稍快</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="content.js?v=1"></script>
+  <script src="app-v2.js?v=1"></script>
+</body>
+</html>
