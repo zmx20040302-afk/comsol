@@ -362,13 +362,13 @@
   }
 
   function recordedAudioPath(card) {
-    const filename = `audio/card-${String(card.id).padStart(2, "0")}.mp3?v=18`;
+    const filename = `audio/card-${String(card.id).padStart(2, "0")}.mp3?v=19`;
     const bundledHost = /(^localhost$|^127\.0\.0\.1$|\.chatgpt\.site$|\.github\.io$)/i.test(location.hostname);
     return bundledHost ? filename : `https://luoyang-youshi-dabian-cards.benfeili64.chatgpt.site/${filename}`;
   }
 
   function backgroundAudioPath() {
-    const filename = "audio/all-cards-background.mp3?v=18";
+    const filename = "audio/all-cards-background.mp3?v=19";
     const bundledHost = /(^localhost$|^127\.0\.0\.1$|\.chatgpt\.site$|\.github\.io$)/i.test(location.hostname);
     return bundledHost ? filename : `https://luoyang-youshi-dabian-cards.benfeili64.chatgpt.site/${filename}`;
   }
