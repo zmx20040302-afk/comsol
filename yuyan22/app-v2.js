@@ -125,7 +125,7 @@
   }
 
   function versionedAudioUrl(path) {
-    return path + "?v=7";
+    return path + "?v=8";
   }
 
   function preloadAudioPath(path) {
