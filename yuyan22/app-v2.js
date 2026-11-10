@@ -20,7 +20,7 @@
     part: saved.part === "reflection" ? "reflection" : "process",
     loop: Boolean(saved.loop),
     continuous: true,
-    speed: [0.7, 0.9, 1.05].indexOf(Number(saved.speed)) >= 0 ? Number(saved.speed) : 0.9,
+    speed: [0.7, 0.85, 1.05].indexOf(Number(saved.speed)) >= 0 ? Number(saved.speed) : 0.85,
     positions: saved.positions || {},
     trackIndices: saved.trackIndices || {}
   };
@@ -125,7 +125,7 @@
   }
 
   function versionedAudioUrl(path) {
-    return path + "?v=8";
+    return path + "?v=9";
   }
 
   function preloadAudioPath(path) {
